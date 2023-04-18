@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
 // app.use(express.static('public'));
 
 // Route files
-// const userRouter = require('./routes/userRouter');
+const userRouter = require('./routes/userRouter');
 
 // Dev middleware Morgan
 if (process.env.NODE_ENV === 'development') {
@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
 });
 
 // Mount routers
-// app.use('/api/v1/user', userRouter);
+app.use('/api/v1/user', userRouter);
 
 // Handling other routes
 app.get('*', (req, res) => {
