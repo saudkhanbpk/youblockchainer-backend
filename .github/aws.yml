@@ -1,0 +1,39 @@
+name: Push-to-AWS-EC2-Server
+
+on: 
+  push:
+    branches:    
+      - main 
+
+jobs:
+  deploy:
+    name: Push to EC2 Instance
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v1
+      
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+    
+      # - name: npm install
+      #   run: |
+      #     npm install
+
+      # - name: Configure env
+      #   run: |
+      #     cat > .env << EOF
+      #     ${{ secrets.ENVIRONMENT }}
+      #     EOF
+
+      # - name: Deploy to my EC2 instance
+      #   uses: easingthemes/ssh-deploy@v2.1.5
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+      #     SOURCE: "./"
+      #     REMOTE_HOST: "ec2-34-239-191-186.compute-1.amazonaws.com"
+      #     REMOTE_USER: "ubuntu"
+      #     TARGET: "/home/ubuntu/backend"
