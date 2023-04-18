@@ -189,3 +189,19 @@ Social => {
 ```js
 { ...User }
 ```
+
+### GPT
+
+#### 🟠 `POST: /api/v1/gpt/ask` ✔️ 
+
+###### BODY
+
+| KEY    | VALUE    | REQUIRED | DEFAULT |
+| -------| -------- | -------- | ------- |
+| prompt | String   | Yes      |         |
+
+###### RESPONSE
+
+```js
+String
+```

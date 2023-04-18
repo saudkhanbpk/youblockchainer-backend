@@ -2,10 +2,12 @@ const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const { Configuration, OpenAIApi } = require('openai');
 const dotenv = require('dotenv');
 
 const connectDB = require('./config/db');
 // const { initializeBlockchain } = require('./config/blockchain');
+const { initializeOpenAI } = require('./utils/gpt');
 
 // load env vars
 dotenv.config({ path: './.env' });
@@ -14,6 +16,8 @@ dotenv.config({ path: './.env' });
 connectDB();
 // Blockchain
 // initializeBlockchain();
+// OpenAI
+initializeOpenAI();
 
 // Create Express instance
 const app = express();
@@ -37,6 +41,7 @@ app.use(function (req, res, next) {
 
 // Route files
 const userRouter = require('./routes/userRouter');
+const gptRouter = require('./routes/gptRouter');
 
 // Dev middleware Morgan
 if (process.env.NODE_ENV === 'development') {
@@ -52,6 +57,7 @@ app.get('/', (req, res) => {
 
 // Mount routers
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/gpt', gptRouter);
 
 // Handling other routes
 app.get('*', (req, res) => {
