@@ -2,7 +2,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const { Configuration, OpenAIApi } = require('openai');
 const dotenv = require('dotenv');
 
 const connectDB = require('./config/db');
