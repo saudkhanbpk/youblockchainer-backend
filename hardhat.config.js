@@ -17,6 +17,11 @@ module.exports = {
     },
   },
   networks: {
+    baseTestnet: {
+      url: `https://goerli.base.org`,
+      accounts: [`0x${privatekey}`],
+      network_id: 84531,
+    },
     polygonTestnet: {
       url: `https://rpc-mumbai.maticvigil.com`,
       accounts: [`0x${privatekey}`],
