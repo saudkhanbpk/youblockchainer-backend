@@ -151,11 +151,6 @@
 | KEY           | VALUE    | REQUIRED | DEFAULT |
 | ------------- | -------- | -------- | ------- |
 | walletAddress | String   | Yes      |         |
-| favorites     | [Offer]  | No       |         |
-| favoriteItems | [Item]   | No       |         |
-| claimed       | [Offer]  | No       |         |
-| redeemed      | [Offer]  | No       |         |
-| created       | [Offer]  | No       |         |
 | username      | String   | No       | Unnamed |
 | bio           | String   | No       |         |
 | email         | String   | No       |         |
