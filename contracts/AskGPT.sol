@@ -1,11 +1,11 @@
-// contracts/DeOffer.sol
+// contracts/AskGPT.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract AskGPT is Ownable {
-    uint256 public marketFee = 50; // 5% (MarketPlace)
+    uint256 public marketFee = 25; // 2.5% (MarketPlace)
 
     constructor() {}
 

@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 require('@nomiclabs/hardhat-waffle');
+require("@nomiclabs/hardhat-etherscan");
 
 // load env vars
 dotenv.config({ path: './.env' });
@@ -37,5 +38,22 @@ module.exports = {
       accounts: [`0x${privatekey}`],
       network_id: 1,
     },
+  },
+  etherscan: {
+    apiKey: {
+     // Basescan doesn't require an API key, however
+     // Hardhat still expects an arbitrary string to be provided.
+     "baseTestnet": "PLACEHOLDER_STRING"
+    },
+    customChains: [
+      {
+        network: "baseTestnet",
+        chainId: 84531,
+        urls: {
+         apiURL: "https://api-goerli.basescan.org/api",
+         browserURL: "https://goerli.basescan.org"
+        }
+      }
+    ]
   },
 };
