@@ -7,15 +7,17 @@ const User = require('../models/userModel');
 dotenv.config({ path: '../.env' });
 
 exports.getUsers = async (req, res) => {
-  const users = await User.find().populate('followers following');
+  let { expert } = req.query;
+  const users = await User.find({ isExpert: expert ? true : false }).populate('followers following');
   res.status(200).json(users);
 };
 
 exports.searchUsers = async (req, res) => {
-  let { q } = req.query;
+  let { q, expert } = req.query;
   if (!q) q = '';
   const users = await User.find({
     name: { $regex: q, $options: 'i' },
+    isExpert: expert ? true : false,
   }).populate('followers following');
 
   res.status(200).json(users);
@@ -36,7 +38,7 @@ exports.getNonVerifiedCreators = async (req, res) => {
 };
 
 exports.getUsersPaginated = async (req, res) => {
-  let { page, size } = req.query;
+  let { page, size, expert } = req.query;
 
   if (!page || page <= 0) page = 1;
   if (!size || size <= 0) size = 10;
@@ -44,7 +46,7 @@ exports.getUsersPaginated = async (req, res) => {
   const skip = (page - 1) * size;
   const limit = parseInt(size);
 
-  const users = await User.find({}, {}, { skip, limit })
+  const users = await User.find({ isExpert: expert ? true : false }, {}, { skip, limit })
     .limit(limit)
     .populate('followers following');
 

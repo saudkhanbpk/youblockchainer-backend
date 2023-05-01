@@ -55,6 +55,12 @@
 
 #### 🟢 `GET: /api/v1/user/users` ✔️
 
+###### Query
+
+| KEY    | VALUE     | REQUIRED | DEFAULT |
+| ------ | --------- | -------- | ------- |
+| expert | Boolean   | No       | False   |
+
 ###### RESPONSE
 
 ```js
@@ -85,6 +91,7 @@
 | ------ | --------- | -------- | ------- |
 | page   | Number    | No       | 1       |
 | size   | Number    | No       | 10      |
+| expert | Boolean   | No       | False   |
 
 ###### RESPONSE
 
@@ -99,6 +106,7 @@
 | KEY    | VALUE     | REQUIRED | DEFAULT |
 | ------ | --------- | -------- | ------- |
 | q      | String    | No       | ""      |
+| expert | Boolean   | No       | False   |
 
 ###### RESPONSE
 
