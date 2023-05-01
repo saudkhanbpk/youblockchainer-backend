@@ -40,6 +40,7 @@ app.use(function (req, res, next) {
 
 // Route files
 const userRouter = require('./routes/userRouter');
+const brandRouter = require('./routes/brandRouter');
 const gptRouter = require('./routes/gptRouter');
 
 // Dev middleware Morgan
@@ -56,6 +57,7 @@ app.get('/', (req, res) => {
 
 // Mount routers
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/brand', brandRouter);
 app.use('/api/v1/gpt', gptRouter);
 
 // Handling other routes

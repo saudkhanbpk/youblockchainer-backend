@@ -51,6 +51,23 @@
 }
 ```
 
+### Brand
+  
+```js
+{
+  _id: brand_id,
+  name: String,             // Eg. Adidas
+  nickname: String,         // @...
+  description: String,  
+  walletAddress: String,    // Of associated user/representative
+  img: String,              // ipfs string
+  secondaryImg: String,     // ipfs string
+  isVerified: Boolean,      // For Blue tick
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
 ### User
 
 #### 🟢 `GET: /api/v1/user/users` ✔️
@@ -196,6 +213,121 @@ Social => {
 
 ```js
 { ...User }
+```
+
+### Brand
+
+#### 🟢 `GET: /api/v1/brand/` ✔️
+
+###### RESPONSE
+
+```js
+[{ ...Brand }]
+```
+
+#### 🟢 `GET: /api/v1/brand/:id` ✔️
+
+###### RESPONSE
+
+```js
+{ ...Brand }
+```
+
+#### 🟢 `GET: /api/v1/brand/user/:walletAddress` ✔️
+
+###### RESPONSE
+
+```js
+[{ ...Brand }]
+```
+
+#### 🟠 `POST: /api/v1/brand/` ✔️
+
+###### BODY
+
+| KEY             | VALUE       | REQUIRED | DEFAULT |
+| --------------- | ----------- | -------- | ------- |
+| name            | String      | Yes      |         |
+| nickname        | String      | No       |         |
+| description     | String      | No       |         |
+| walletAddress   | String      | No       |         |
+| img             | String      | No       |         |
+| secondaryImg    | String      | No       |         |
+| isVerified      | Boolean     | No       | false   |
+
+###### RESPONSE
+
+```js
+{ ...Brand }
+```
+
+#### 🟡 `PUT: /api/v1/brand/:id` ✔️ 
+  
+###### BODY
+
+| KEY             | VALUE       | REQUIRED | DEFAULT |
+| --------------- | ----------- | -------- | ------- |
+| name            | String      | Yes      |         |
+| nickname        | String      | No       |         |
+| description     | String      | No       |         |
+| walletAddress   | String      | No       |         |
+| img             | String      | No       |         |
+| secondaryImg    | String      | No       |         |
+| isVerified      | Boolean     | No       | false   |
+
+###### RESPONSE
+
+```js
+{ ...Brand }
+```
+
+#### 🟡 `PUT: /api/v1/brand/verify/:id` ⚠️ 
+
+###### RESPONSE
+
+```js
+{ ...Brand }
+```
+
+#### 🟡 `PUT: /api/v1/brand/blacklist/:id` ⚠️ 
+
+###### RESPONSE
+
+```js
+{ ...Brand }
+```
+
+#### 🔴 `DELETE: /api/v1/brand/` ⚠️
+
+#### 🔴 `DELETE: /api/v1/brand/:id` ⚠️
+
+#### 🟢 `GET: /api/v1/brand/brands/search` ✔️
+
+###### Query
+
+| KEY    | VALUE     | REQUIRED | DEFAULT |
+| ------ | --------- | -------- | ------- |
+| q      | String    | No       | ""      |
+
+###### RESPONSE
+
+```js
+[{ ...Brand }]
+```
+
+#### 🟢 `GET: /api/v1/brand/brands/paginated` ✔️
+
+###### Query
+
+| KEY    | VALUE     | REQUIRED | DEFAULT |
+| ------ | --------- | -------- | ------- |
+| page   | Number    | No       | 1       |
+| size   | Number    | No       | 10      |
+
+###### RESPONSE
+
+```js
+[{ ...Brand }]
 ```
 
 ### GPT
