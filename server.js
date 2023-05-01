@@ -42,6 +42,7 @@ app.use(function (req, res, next) {
 const userRouter = require('./routes/userRouter');
 const brandRouter = require('./routes/brandRouter');
 const gptRouter = require('./routes/gptRouter');
+const ipfsRouter = require('./routes/ipfsRouter');
 
 // Dev middleware Morgan
 if (process.env.NODE_ENV === 'development') {
@@ -59,6 +60,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/brand', brandRouter);
 app.use('/api/v1/gpt', gptRouter);
+app.use('/api/v1/ipfs', ipfsRouter);
 
 // Handling other routes
 app.get('*', (req, res) => {

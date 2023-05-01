@@ -345,3 +345,37 @@ Social => {
 ```js
 String
 ```
+
+### IPFS
+
+#### 🟠 `POST: /api/v1/ipfs/img` ✔️
+
+###### BODY
+
+| KEY   | VALUE  | REQUIRED | DEFAULT |
+| ----- | ------ | -------- | ------- |
+| files | [file] | Yes      |         |
+
+###### RESPONSE
+
+```js
+{
+  success: Boolean,
+  urls: [String],
+}
+```
+
+#### 🟠 `POST: /api/v1/ipfs/json` ✔️
+
+###### BODY
+
+Any JSON object
+
+###### RESPONSE
+
+```js
+{
+  success: Boolean,
+  url: String,
+}
+```
