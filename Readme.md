@@ -40,7 +40,11 @@
   following: [
     user_id
   ],
-  isVerifiedCreator: Boolean,
+  scripts: [
+    String // IPFS link to docs
+  ],
+  isExpert: Boolean,
+  isVerified: Boolean,
   isAdmin: Boolean,
   createdAt: Date,
   updatedAt: Date
@@ -157,6 +161,7 @@
 | profileImage  | String   | No       |         |
 | profileBanner | String   | No       |         |
 | socialHandles | [Social] | No       |         |
+| scripts       | [String] | No       |         |
 
 Social => {
   name: String,

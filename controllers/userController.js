@@ -22,14 +22,14 @@ exports.searchUsers = async (req, res) => {
 };
 
 exports.getVerifiedCreators = async (req, res) => {
-  const users = await User.find({ isVerifiedSeller: true }).populate(
+  const users = await User.find({ isVerified: true }).populate(
     'followers following'
   );
   res.status(200).json(users);
 };
 
 exports.getNonVerifiedCreators = async (req, res) => {
-  const users = await User.find({ isVerifiedSeller: false }).populate(
+  const users = await User.find({ isVerified: false }).populate(
     'followers following'
   );
   res.status(200).json(users);
@@ -112,6 +112,7 @@ exports.getUserById = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   const ad = await User.findById(req.user._id);
   if (!ad.isAdmin && req.body.isAdmin) req.body.isAdmin = false;
+  if(!ad.isVerified && req.body.isVerified) req.body.isVerified = false;
 
   const updatedUser = await User.findByIdAndUpdate(req.user._id, req.body, {
     new: true,
@@ -176,7 +177,7 @@ exports.verifyCreator = async (req, res) => {
   const ad = await User.findByIdAndUpdate(
     req.params.id,
     {
-      isVerifiedCreator: true,
+      isVerified: true,
     },
     {
       new: true,

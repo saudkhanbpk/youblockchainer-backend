@@ -32,6 +32,11 @@ const UserSchema = new mongoose.Schema({
       },
     }
   ],
+  scripts: [
+    {
+      type: String, // URI to IPFS docs
+    },
+  ],
   followers: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -44,7 +49,11 @@ const UserSchema = new mongoose.Schema({
       ref: 'User',
     },
   ],
-  isVerifiedCreator: {
+  isExpert: {
+    type: Boolean,
+    default: false,
+  },
+  isVerified: {
     type: Boolean,
     default: false,
   },
