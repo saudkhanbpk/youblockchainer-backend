@@ -68,6 +68,32 @@
 }
 ```
 
+### Room
+
+```js
+{
+  _id: room_id,
+  p1: user_id,
+  p2: user_id,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+### Chat (Message)
+
+```js
+{
+  _id: chat_id,
+  chatMessage: String,
+  sender: user_id,
+  type: String, 
+  roomId: _id, // room_id or group_id
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
 ### User
 
 #### 🟢 `GET: /api/v1/user/users` ✔️
@@ -379,3 +405,39 @@ Any JSON object
   url: String,
 }
 ```
+
+### Chat
+
+#### 🟢 `GET: /api/v1/chat/` ✔️
+
+###### RESPONSE
+
+```js
+[{ ...Room }]
+```
+
+#### 🟠 `POST: /api/v1/chat/room` ✔️
+
+###### BODY
+
+| KEY      | VALUE   | REQUIRED | DEFAULT  |
+| -------- | ------- | -------- | -------- |
+| receiver | user_id | Yes      |          |
+
+###### RESPONSE
+
+```js
+{ ...Room }
+```
+
+#### 🟢 `GET: /api/v1/chat/room/:id` ✔️
+
+###### RESPONSE
+
+```js
+{ ...Room }
+```
+
+#### 🔴 `DELETE: /api/v1/chat/room/:id` ✔️
+
+#### 🔴 `DELETE: /api/v1/chat/msg/:id` ✔️

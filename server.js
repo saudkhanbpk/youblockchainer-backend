@@ -43,6 +43,7 @@ const userRouter = require('./routes/userRouter');
 const brandRouter = require('./routes/brandRouter');
 const gptRouter = require('./routes/gptRouter');
 const ipfsRouter = require('./routes/ipfsRouter');
+const chatRouter = require("./routes/chatRouter");
 
 // Dev middleware Morgan
 if (process.env.NODE_ENV === 'development') {
@@ -61,6 +62,7 @@ app.use('/api/v1/user', userRouter);
 app.use('/api/v1/brand', brandRouter);
 app.use('/api/v1/gpt', gptRouter);
 app.use('/api/v1/ipfs', ipfsRouter);
+app.use("/api/v1/chat", chatRouter);
 
 // Handling other routes
 app.get('*', (req, res) => {
@@ -77,6 +79,50 @@ const server = app.listen(
     `The server is running in ${process.env.NODE_ENV} mode on port ${PORT}`
   )
 );
+
+// Web Sockets
+const io = require("socket.io")(server);
+
+const Chat = require("./models/chatModel");
+
+io.on("connection", (socket) => {
+  // Join Room
+  socket.on("Join Room", (roomId) => {
+    socket.join(roomId);
+    console.log(`User with ID: ${socket.id} joined room: ${roomId}`);
+  });
+
+  socket.on("Input Chat Message", async (msg) => {
+    try {
+      let chat;
+
+      if (msg.roomId) {
+        chat = new Chat({
+          chatMessage: msg.chatMessage,
+          sender: msg.sender,
+          type: msg.type,
+          roomId: msg.roomId,
+        });
+      }
+
+      chat.save((err, doc) => {
+        if (err) console.log(err);
+        Chat.findById(doc._id)
+          .populate("sender")
+          .exec((err, doc) => {
+            return socket.to(msg.roomId).emit("Output Chat Message", doc);
+            // return io.emit("Output Chat Message", doc);
+          });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
 
 /**
  * Error handler.
