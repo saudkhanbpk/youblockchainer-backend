@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\2.Programming\\8. Freelancing\\14. ChatGPTAndBlockchain\\dev\\Web3_chatgpt_backend\\contracts\\AskGPT.sol": {
-      "lastModificationDate": 1681881102235,
-      "contentHash": "b4ec87e45543d680e589c314abb5b977",
+      "lastModificationDate": 1683028164337,
+      "contentHash": "a055926d328d96b3f47c641d5ca268f6",
       "sourceName": "contracts/AskGPT.sol",
       "solcConfig": {
         "version": "0.8.0",
@@ -28,13 +28,12 @@
           }
         }
       },
-      "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
+        "Agreement",
         "AskGPT"
       ]
     },
