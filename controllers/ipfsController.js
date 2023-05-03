@@ -27,7 +27,7 @@ exports.uploadImg = async (req, res) => {
     await Promise.all(
       req.files.map(async (fil) => {
         let CID = await ipfs.add(fil.buffer);
-        urls.push(`https://deoffer.infura-ipfs.io/ipfs/${CID.path}`);
+        urls.push(`https://youblockchainer.infura-ipfs.io/ipfs/${CID.path}`);
       })
     );
 
@@ -40,7 +40,7 @@ exports.uploadImg = async (req, res) => {
 
 exports.uploadJson = async (req, res) => {
   let CID = await ipfs.add(JSON.stringify(req.body));
-  let url = `https://deoffer.infura-ipfs.io/ipfs/${CID.path}`;
+  let url = `https://youblockchainer.infura-ipfs.io/ipfs/${CID.path}`;
 
   res.json({
     success: true,
