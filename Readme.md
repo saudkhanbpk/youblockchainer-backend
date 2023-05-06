@@ -4,6 +4,8 @@
 
 - [Backend Server](http://13.51.252.66)
 
+- [Landing Page](http://13.53.138.223)
+
 ###### SYMBOLS
 
 - 📝 PENDING
