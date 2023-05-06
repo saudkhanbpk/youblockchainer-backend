@@ -53,9 +53,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Home
-app.get('/', (req, res) => {
-  res.status(200).send(`API is running`);
-});
+// app.get('/', (req, res) => {
+//   res.status(200).send(`API is running`);
+// });
 
 // Mount routers
 app.use('/api/v1/user', userRouter);
