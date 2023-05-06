@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
   );
   next();
 });
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
 // Route files
 const userRouter = require('./routes/userRouter');
@@ -66,8 +66,8 @@ app.use("/api/v1/chat", chatRouter);
 
 // Handling other routes
 app.get('*', (req, res) => {
-  res.status(404).send(`Invalid route`);
-  // res.sendFile(`${__dirname}/public/index.html`);
+  // res.status(404).send(`Invalid route`);
+  res.sendFile(`${__dirname}/public/index.html`);
 });
 
 // access env vars
