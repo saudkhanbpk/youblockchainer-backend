@@ -1,28 +1,105 @@
-const Brand = require("../models/brandModel");
+const Brand = require('../models/brandModel');
 
 exports.getBrands = async (req, res) => {
-  const ads = await Brand.find();
+  const ads = await Brand.find()
+    .populate('manager')
+    .populate({
+      path: 'manager',
+      model: 'User',
+      populate: [
+        {
+          path: 'followers',
+          model: 'User',
+        },
+        {
+          path: 'following',
+          model: 'User',
+        },
+        {
+          path: 'agreements',
+          model: 'Agreement',
+        },
+      ],
+    });
   res.status(200).json(ads);
 };
 
 exports.newBrand = async (req, res) => {
   const ad = await Brand.create(req.body);
-  res.status(200).json(ad);
+  const ad2 = await Brand.findById(ad._id)
+    .populate('manager')
+    .populate({
+      path: 'manager',
+      model: 'User',
+      populate: [
+        {
+          path: 'followers',
+          model: 'User',
+        },
+        {
+          path: 'following',
+          model: 'User',
+        },
+        {
+          path: 'agreements',
+          model: 'Agreement',
+        },
+      ],
+    });
+  res.status(200).json(ad2);
 };
 
 exports.deleteBrands = async (req, res) => {
   const ads = await Brand.deleteMany({});
-  res.status(200).json({success: true});
+  res.status(200).json({ success: true });
 };
 
 exports.getBrandById = async (req, res) => {
-  const ad = await Brand.findById(req.params.id);
-  if (!ad) return res.status(404).json("No such brand found");
+  const ad = await Brand.findById(req.params.id)
+    .populate('manager')
+    .populate({
+      path: 'manager',
+      model: 'User',
+      populate: [
+        {
+          path: 'followers',
+          model: 'User',
+        },
+        {
+          path: 'following',
+          model: 'User',
+        },
+        {
+          path: 'agreements',
+          model: 'Agreement',
+        },
+      ],
+    });
+  if (!ad) return res.status(404).json('No such brand found');
   res.status(200).json(ad);
 };
 
 exports.getBrandByWalletAddress = async (req, res) => {
-  const ad = await Brand.find({ walletAddress: req.params.walletAddress });
+  const ad = await Brand.find({ walletAddress: req.params.walletAddress })
+    .populate('manager')
+    .populate({
+      path: 'manager',
+      model: 'User',
+      populate: [
+        {
+          path: 'followers',
+          model: 'User',
+        },
+        {
+          path: 'following',
+          model: 'User',
+        },
+        {
+          path: 'agreements',
+          model: 'Agreement',
+        },
+      ],
+    });
   res.status(200).json(ad);
 };
 
@@ -30,7 +107,27 @@ exports.updateBrand = async (req, res) => {
   const ad = await Brand.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
-  return res.status(200).json(ad);
+  const ad2 = await Brand.findById(ad._id)
+    .populate('manager')
+    .populate({
+      path: 'manager',
+      model: 'User',
+      populate: [
+        {
+          path: 'followers',
+          model: 'User',
+        },
+        {
+          path: 'following',
+          model: 'User',
+        },
+        {
+          path: 'agreements',
+          model: 'Agreement',
+        },
+      ],
+    });
+  return res.status(200).json(ad2);
 };
 
 exports.deleteBrand = async (req, res) => {
@@ -39,20 +136,28 @@ exports.deleteBrand = async (req, res) => {
 };
 
 exports.verifyBrand = async (req, res) => {
-  const ad = await Brand.findByIdAndUpdate(req.params.id, {
-    isVerified: true
-  }, {
-    new: true,
-  });
+  const ad = await Brand.findByIdAndUpdate(
+    req.params.id,
+    {
+      isVerified: true,
+    },
+    {
+      new: true,
+    }
+  );
   return res.status(200).json(ad);
 };
 
 exports.blacklistBrand = async (req, res) => {
-  const ad = await Brand.findByIdAndUpdate(req.params.id, {
-    isBlacklisted: true
-  }, {
-    new: true,
-  });
+  const ad = await Brand.findByIdAndUpdate(
+    req.params.id,
+    {
+      isBlacklisted: true,
+    },
+    {
+      new: true,
+    }
+  );
   return res.status(200).json(ad);
 };
 
@@ -61,7 +166,26 @@ exports.searchBrands = async (req, res) => {
   if (!q) q = '';
   const coms = await Brand.find({
     name: { $regex: q, $options: 'i' },
-  });
+  })
+    .populate('manager')
+    .populate({
+      path: 'manager',
+      model: 'User',
+      populate: [
+        {
+          path: 'followers',
+          model: 'User',
+        },
+        {
+          path: 'following',
+          model: 'User',
+        },
+        {
+          path: 'agreements',
+          model: 'Agreement',
+        },
+      ],
+    });
 
   res.status(200).json(coms);
 };
@@ -77,6 +201,25 @@ exports.getBrandsPaginated = async (req, res) => {
 
   const coms = await Brand.find({}, {}, { skip, limit })
     .limit(limit)
-    
+    .populate('manager')
+    .populate({
+      path: 'manager',
+      model: 'User',
+      populate: [
+        {
+          path: 'followers',
+          model: 'User',
+        },
+        {
+          path: 'following',
+          model: 'User',
+        },
+        {
+          path: 'agreements',
+          model: 'Agreement',
+        },
+      ],
+    });
+
   res.status(200).json(coms);
 };

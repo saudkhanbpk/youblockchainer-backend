@@ -10,9 +10,18 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		default: 'Unnamed',
 	},
+  rate: {
+    type: Number,
+    default: 5,
+  },
   bio: {
     type: String,
   },
+  skills: [
+    {
+      type: String,
+    },
+  ],
   email: {
 		type: String,
 	},
@@ -47,6 +56,12 @@ const UserSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+    },
+  ],
+  agreements: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Agreement',
     },
   ],
   isExpert: {

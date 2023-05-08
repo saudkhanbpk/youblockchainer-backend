@@ -3,12 +3,15 @@ const dotenv = require('dotenv');
 const { ethers } = require('ethers');
 
 const User = require('../models/userModel');
+const Agreement = require('../models/agreementModel');
 
 dotenv.config({ path: '../.env' });
 
 exports.getUsers = async (req, res) => {
   let { expert } = req.query;
-  const users = await User.find({ isExpert: expert ? true : false }).populate('followers following');
+  const users = await User.find({ isExpert: expert ? true : false }).populate(
+    'followers following agreements'
+  );
   res.status(200).json(users);
 };
 
@@ -18,21 +21,21 @@ exports.searchUsers = async (req, res) => {
   const users = await User.find({
     name: { $regex: q, $options: 'i' },
     isExpert: expert ? true : false,
-  }).populate('followers following');
+  }).populate('followers following agreements');
 
   res.status(200).json(users);
 };
 
 exports.getVerifiedCreators = async (req, res) => {
   const users = await User.find({ isVerified: true }).populate(
-    'followers following'
+    'followers following agreements'
   );
   res.status(200).json(users);
 };
 
 exports.getNonVerifiedCreators = async (req, res) => {
   const users = await User.find({ isVerified: false }).populate(
-    'followers following'
+    'followers following agreements'
   );
   res.status(200).json(users);
 };
@@ -46,9 +49,13 @@ exports.getUsersPaginated = async (req, res) => {
   const skip = (page - 1) * size;
   const limit = parseInt(size);
 
-  const users = await User.find({ isExpert: expert ? true : false }, {}, { skip, limit })
+  const users = await User.find(
+    { isExpert: expert ? true : false },
+    {},
+    { skip, limit }
+  )
     .limit(limit)
-    .populate('followers following');
+    .populate('followers following agreements');
 
   res.status(200).json(users);
 };
@@ -72,7 +79,7 @@ exports.login = async (req, res) => {
 
   const user = await User.findOne({
     walletAddress,
-  }).populate('followers following');
+  }).populate('followers following agreements');
 
   if (!user) {
     const newU = new User({
@@ -89,7 +96,7 @@ exports.login = async (req, res) => {
 
 exports.getMe = async (req, res) => {
   const user = await User.findById(req.user._id).populate(
-    'followers following'
+    'followers following agreements'
   );
   if (!user) return res.status(404).json('No user found');
   res.status(200).json(user);
@@ -98,14 +105,14 @@ exports.getMe = async (req, res) => {
 exports.getUserByWalletAddress = async (req, res) => {
   const user = await User.findOne({
     walletAddress: req.params.walletAddress,
-  }).populate('followers following');
+  }).populate('followers following agreements');
   if (!user) return res.status(404).json('No user found');
   res.status(200).json(user);
 };
 
 exports.getUserById = async (req, res) => {
   const user = await User.findById(req.params.id).populate(
-    'followers following'
+    'followers following agreements'
   );
   if (!user) return res.status(404).json('No user found');
   res.status(200).json(user);
@@ -114,11 +121,11 @@ exports.getUserById = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   const ad = await User.findById(req.user._id);
   if (!ad.isAdmin && req.body.isAdmin) req.body.isAdmin = false;
-  if(!ad.isVerified && req.body.isVerified) req.body.isVerified = false;
+  if (!ad.isVerified && req.body.isVerified) req.body.isVerified = false;
 
   const updatedUser = await User.findByIdAndUpdate(req.user._id, req.body, {
     new: true,
-  }).populate('followers following');
+  }).populate('followers following agreements');
 
   res.status(200).json(updatedUser);
 
@@ -164,7 +171,7 @@ exports.toggleFollow = async (req, res) => {
     {
       $set: newUser,
     }
-  ).populate('followers following');
+  ).populate('followers following agreements');
 
   await User.findOneAndUpdate(
     { _id: req.params.id },
@@ -184,7 +191,43 @@ exports.verifyCreator = async (req, res) => {
     {
       new: true,
     }
-  ).populate('followers following');
+  ).populate('followers following agreements');
 
+  return res.status(200).json(ad);
+};
+
+exports.newAgreement = async (req, res) => {
+  const ad = await Agreement.create(req.body);
+  const { user2 } = req.body;
+  const u2 = await User.findById(user2);
+
+  let ids = req.user.agreements;
+  let ids2 = u2.agreements;
+  ids.push(ad._id);
+  ids2.push(ad._id);
+
+  await User.findByIdAndUpdate(
+    req.user._id,
+    { agreements: ids },
+    {
+      new: true,
+    }
+  );
+
+  await User.findByIdAndUpdate(
+    u2._id,
+    { agreements: ids2 },
+    {
+      new: true,
+    }
+  );
+
+  res.status(200).json(ad);
+};
+
+exports.updateAgreement = async (req, res) => {
+  const ad = await Agreement.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
   return res.status(200).json(ad);
 };

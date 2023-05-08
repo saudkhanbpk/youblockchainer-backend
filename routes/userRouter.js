@@ -15,7 +15,9 @@ const {
   verifyCreator,
   login,
   getMe,
-  getNonVerifiedCreators
+  getNonVerifiedCreators,
+  newAgreement,
+  updateAgreement
 } = require('../controllers/userController');
 
 const userRouter = express.Router();
@@ -51,5 +53,8 @@ userRouter.put(
   isAdmin(),
   asyncHandler(verifyCreator)
 );
+
+userRouter.post('/agreement', cookieAuthRequired(), asyncHandler(newAgreement));
+userRouter.put('/agreement/:id', cookieAuthRequired(), asyncHandler(updateAgreement));
 
 module.exports = userRouter;

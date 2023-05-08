@@ -45,6 +45,13 @@
   scripts: [
     String // IPFS link to docs
   ],
+  rate: Number,
+  skills: [
+    String
+  ],
+  agreements: [
+    agreement_id
+  ],
   isExpert: Boolean,
   isVerified: Boolean,
   isAdmin: Boolean,
@@ -61,10 +68,30 @@
   name: String,             // Eg. Adidas
   nickname: String,         // @...
   description: String,  
-  walletAddress: String,    // Of associated user/representative
+  manager: user_id,
+  skills: [String],
   img: String,              // ipfs string
   secondaryImg: String,     // ipfs string
   isVerified: Boolean,      // For Blue tick
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+### Agreement
+
+```js
+{
+  _id: agreement_id,
+  name: String,
+  user1: user_id,
+  user2: user_id,
+  reviewForU1: String,
+  ratingForU1: Number,
+  reviewForU2: String,
+  ratingForU2: Number,
+  startsAt: Number,
+  endsAt: Number,
   createdAt: Date,
   updatedAt: Date
 }
@@ -215,6 +242,8 @@
 | profileBanner | String   | No       |         |
 | socialHandles | [Social] | No       |         |
 | scripts       | [String] | No       |         |
+| rate          | Number   | No       | 0       |
+| skills        | [String] | No       |         |
 
 Social => {
   name: String,
@@ -225,6 +254,47 @@ Social => {
 
 ```js
 { ...User }
+```
+
+#### 🟠 `POST: /api/v1/user/agreement` ✔️
+
+###### BODY
+
+| KEY             | VALUE       | REQUIRED | DEFAULT |
+| --------------- | ----------- | -------- | ------- |
+| name            | String      | Yes      |         |
+| user1           | user_id     | No       |         |
+| user2           | user_id     | No       |         |
+| reviewForU1     | String      | No       |         |
+| ratingForU1     | Number      | No       | 5       |
+| reviewForU2     | String      | No       |         |
+| ratingForU2     | Number      | No       | 5       |
+| startsAt        | Number      | No       |         |
+| endsAt          | Number      | No       |         |
+
+###### RESPONSE
+
+```js
+{ ...Agreement }
+```
+
+#### 🟡 `PUT: /api/v1/user/agreement/:id` ✔️ 
+  
+###### BODY
+
+| KEY             | VALUE       | REQUIRED | DEFAULT |
+| --------------- | ----------- | -------- | ------- |
+| reviewForU1     | String      | No       |         |
+| ratingForU1     | Number      | No       | 5       |
+| reviewForU2     | String      | No       |         |
+| ratingForU2     | Number      | No       | 5       |
+| startsAt        | Number      | No       |         |
+| endsAt          | Number      | No       |         |
+
+###### RESPONSE
+
+```js
+{ ...Agreement }
 ```
 
 #### 🟡 `PUT: /api/v1/user/toggleFollow/:id` ✔️ 
@@ -278,7 +348,8 @@ Social => {
 | name            | String      | Yes      |         |
 | nickname        | String      | No       |         |
 | description     | String      | No       |         |
-| walletAddress   | String      | No       |         |
+| manager         | user_id     | No       |         |
+| skills          | [String]    | No       |         |
 | img             | String      | No       |         |
 | secondaryImg    | String      | No       |         |
 | isVerified      | Boolean     | No       | false   |
@@ -298,7 +369,7 @@ Social => {
 | name            | String      | Yes      |         |
 | nickname        | String      | No       |         |
 | description     | String      | No       |         |
-| walletAddress   | String      | No       |         |
+| skills          | [String]    | No       |         |
 | img             | String      | No       |         |
 | secondaryImg    | String      | No       |         |
 | isVerified      | Boolean     | No       | false   |

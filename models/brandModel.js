@@ -12,8 +12,14 @@ const BrandSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    walletAddress: { // of associated creator
-      type: String,
+    skills: [
+      {
+        type: String,
+      },
+    ],
+    manager: { // of associated creator
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
     img: {
       type: String, // ipfs string
