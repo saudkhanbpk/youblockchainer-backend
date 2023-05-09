@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 
 const connectDB = require('./config/db');
-// const { initializeBlockchain } = require('./config/blockchain');
+const { initializeBlockchain } = require('./config/blockchain');
 const { initializeOpenAI } = require('./utils/gpt');
 
 // load env vars
@@ -14,7 +14,7 @@ dotenv.config({ path: './.env' });
 // Connect to database
 connectDB();
 // Blockchain
-// initializeBlockchain();
+initializeBlockchain();
 // OpenAI
 initializeOpenAI();
 

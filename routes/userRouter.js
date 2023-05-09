@@ -17,7 +17,8 @@ const {
   getMe,
   getNonVerifiedCreators,
   newAgreement,
-  updateAgreement
+  updateAgreement,
+  executeMetaTransaction
 } = require('../controllers/userController');
 
 const userRouter = express.Router();
@@ -56,5 +57,7 @@ userRouter.put(
 
 userRouter.post('/agreement', cookieAuthRequired(), asyncHandler(newAgreement));
 userRouter.put('/agreement/:id', cookieAuthRequired(), asyncHandler(updateAgreement));
+
+userRouter.post('/metatx', cookieAuthRequired(), asyncHandler(executeMetaTransaction));
 
 module.exports = userRouter;

@@ -7,6 +7,7 @@ contract AskGPT {
     uint256 public marketFee = 25; // 2.5% (MarketPlace)
     uint256 public agreementCount; // Number of Agreements
     address public creator;
+    address private forwarder;
 
     // -------------- Structs ---------------------
     struct AgreementData {
@@ -28,8 +29,9 @@ contract AskGPT {
         uint256 _timestamp
     );
 
-    constructor() {
+    constructor(address _forwarder) {
         creator = msg.sender;
+        forwarder = _forwarder;
     }
 
     receive() external payable {}
@@ -37,8 +39,21 @@ contract AskGPT {
     fallback() external payable {}
 
     modifier onlyOwner() {
-        require(msg.sender == creator, "Not the manager!");
+        require(msgSender() == creator, "Not the manager!");
         _;
+    }
+
+    function msgSender() internal view returns(address sender) {
+        if(msg.sender == forwarder) {
+            bytes memory array = msg.data;
+            uint256 index = msg.data.length;
+            assembly {
+                // Load the 32 bytes word from memory with the address on the lower 20 bytes, and mask those.
+                sender := and(mload(add(array, index)), 0xffffffffffffffffffffffffffffffffffffffff)
+            }
+        } else {
+            return msg.sender;
+        }
     }
 
     // -------------- Agreement Functions ---------
@@ -53,7 +68,7 @@ contract AskGPT {
 
         address newAgreement = (address)(
             new Agreement(
-                msg.sender,
+                msgSender(),
                 _secondParty,
                 agreementCount,
                 _agreementUri,
@@ -61,7 +76,8 @@ contract AskGPT {
                 address(this),
                 _name,
                 marketFee,
-                creator
+                creator,
+                forwarder
             )
         );
 
@@ -73,11 +89,11 @@ contract AskGPT {
             _agreementUri
         );
 
-        userAgreements[msg.sender].push(agreementCount);
+        userAgreements[msgSender()].push(agreementCount);
         userAgreements[_secondParty].push(agreementCount);
 
         emit AgreementCreated(
-            msg.sender,
+            msgSender(),
             _secondParty,
             newAgreement,
             block.timestamp
@@ -120,7 +136,7 @@ contract AskGPT {
     }
 
     function withdraw() public onlyOwner {
-        address payable to = payable(msg.sender);
+        address payable to = payable(msgSender());
         to.transfer(address(this).balance);
     }
 }
@@ -143,6 +159,8 @@ contract Agreement {
 
     uint256 milestoneCount;
     uint256 refundCount;
+
+    address private forwarder;
 
     // ---------------- Mappings -------------------
     mapping(uint256 => MilestoneInfo) public milestones; // All Milestones
@@ -184,7 +202,8 @@ contract Agreement {
         address _agreementFactory,
         string memory _name,
         uint256 _marketFee,
-        address _creator
+        address _creator,
+        address _forwarder
     ) {
         agreementId = _agreementCount;
         creator = _creator;
@@ -195,24 +214,38 @@ contract Agreement {
         agreementFactoryAddress = _agreementFactory;
         name = _name;
         marketFee = _marketFee;
+        forwarder = _forwarder;
     }
 
     modifier onlyManager() {
-        require(msg.sender == manager, "Not the manager!");
+        require(msgSender() == manager, "Not the manager!");
         _;
     }
 
     modifier onlyReceiver() {
-        require(msg.sender == secondParty, "Not the receiver!");
+        require(msgSender() == secondParty, "Not the receiver!");
         _;
     }
 
     modifier onlyDisputeResolver() {
         require(
-            msg.sender == manager || msg.sender == creator,
+            msgSender() == manager || msgSender() == creator,
             "Not the dispute resolver!"
         );
         _;
+    }
+
+    function msgSender() internal view returns(address sender) {
+        if(msg.sender == forwarder) {
+            bytes memory array = msg.data;
+            uint256 index = msg.data.length;
+            assembly {
+                // Load the 32 bytes word from memory with the address on the lower 20 bytes, and mask those.
+                sender := and(mload(add(array, index)), 0xffffffffffffffffffffffffffffffffffffffff)
+            }
+        } else {
+            return msg.sender;
+        }
     }
 
     function addMilestone(

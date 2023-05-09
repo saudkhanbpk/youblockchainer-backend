@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "compile": "npx hardhat compile",
-    "deployContracts": "npx hardhat run scripts/deploy.js --network baseTestnet",
+    "deployContracts": "npx hardhat run scripts/deploy.js --network polygonTestnet",
     "ssh": "bash ./scripts/ssh.sh",
     "test": "npx hardhat test"
   },
@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.3",
+    "@openzeppelin/contracts-upgradeable": "^4.8.3",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

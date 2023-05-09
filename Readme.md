@@ -19,7 +19,7 @@
 ## Schemas
 
 ### User
-  
+
 ```js
 {
   _id: user_id,
@@ -61,13 +61,13 @@
 ```
 
 ### Brand
-  
+
 ```js
 {
   _id: brand_id,
   name: String,             // Eg. Adidas
   nickname: String,         // @...
-  description: String,  
+  description: String,
   manager: user_id,
   skills: [String],
   img: String,              // ipfs string
@@ -116,7 +116,7 @@
   _id: chat_id,
   chatMessage: String,
   sender: user_id,
-  type: String, 
+  type: String,
   roomId: _id, // room_id or group_id
   createdAt: Date,
   updatedAt: Date
@@ -129,14 +129,14 @@
 
 ###### Query
 
-| KEY    | VALUE     | REQUIRED | DEFAULT |
-| ------ | --------- | -------- | ------- |
-| expert | Boolean   | No       | False   |
+| KEY    | VALUE   | REQUIRED | DEFAULT |
+| ------ | ------- | -------- | ------- |
+| expert | Boolean | No       | False   |
 
 ###### RESPONSE
 
 ```js
-[{ ...User }]
+[{ ...User }];
 ```
 
 #### 🟢 `GET: /api/v1/user/verified` ✔️
@@ -144,7 +144,7 @@
 ###### RESPONSE
 
 ```js
-[{ ...User }]
+[{ ...User }];
 ```
 
 #### 🟢 `GET: /api/v1/user/pending` ✔️
@@ -152,48 +152,48 @@
 ###### RESPONSE
 
 ```js
-[{ ...User }]
+[{ ...User }];
 ```
 
 #### 🟢 `GET: /api/v1/user/users/paginated` ✔️
 
 ###### Query
 
-| KEY    | VALUE     | REQUIRED | DEFAULT |
-| ------ | --------- | -------- | ------- |
-| page   | Number    | No       | 1       |
-| size   | Number    | No       | 10      |
-| expert | Boolean   | No       | False   |
+| KEY    | VALUE   | REQUIRED | DEFAULT |
+| ------ | ------- | -------- | ------- |
+| page   | Number  | No       | 1       |
+| size   | Number  | No       | 10      |
+| expert | Boolean | No       | False   |
 
 ###### RESPONSE
 
 ```js
-[{ ...User }]
+[{ ...User }];
 ```
 
 #### 🟢 `GET: /api/v1/user/users/search` ✔️
 
 ###### Query
 
-| KEY    | VALUE     | REQUIRED | DEFAULT |
-| ------ | --------- | -------- | ------- |
-| q      | String    | No       | ""      |
-| expert | Boolean   | No       | False   |
+| KEY    | VALUE   | REQUIRED | DEFAULT |
+| ------ | ------- | -------- | ------- |
+| q      | String  | No       | ""      |
+| expert | Boolean | No       | False   |
 
 ###### RESPONSE
 
 ```js
-[{ ...User }]
+[{ ...User }];
 ```
 
 #### 🟢 `GET: /api/v1/user/login` ✔️
 
 ###### Query
 
-| KEY       |   VALUE   | REQUIRED | DEFAULT |
-| --------- | --------- | -------- | ------- |
-| signature | String    | Yes      |         |
-| address   | String    | Yes      |         |
+| KEY       | VALUE  | REQUIRED | DEFAULT |
+| --------- | ------ | -------- | ------- |
+| signature | String | Yes      |         |
+| address   | String | Yes      |         |
 
 ###### RESPONSE
 
@@ -228,7 +228,7 @@
 { ...User }
 ```
 
-#### 🟡 `PUT: /api/v1/user/me` ✔️ 
+#### 🟡 `PUT: /api/v1/user/me` ✔️
 
 ###### BODY
 
@@ -246,8 +246,8 @@
 | skills        | [String] | No       |         |
 
 Social => {
-  name: String,
-  link: String
+name: String,
+link: String
 }
 
 ###### RESPONSE
@@ -260,17 +260,17 @@ Social => {
 
 ###### BODY
 
-| KEY             | VALUE       | REQUIRED | DEFAULT |
-| --------------- | ----------- | -------- | ------- |
-| name            | String      | Yes      |         |
-| user1           | user_id     | No       |         |
-| user2           | user_id     | No       |         |
-| reviewForU1     | String      | No       |         |
-| ratingForU1     | Number      | No       | 5       |
-| reviewForU2     | String      | No       |         |
-| ratingForU2     | Number      | No       | 5       |
-| startsAt        | Number      | No       |         |
-| endsAt          | Number      | No       |         |
+| KEY         | VALUE   | REQUIRED | DEFAULT |
+| ----------- | ------- | -------- | ------- |
+| name        | String  | Yes      |         |
+| user1       | user_id | No       |         |
+| user2       | user_id | No       |         |
+| reviewForU1 | String  | No       |         |
+| ratingForU1 | Number  | No       | 5       |
+| reviewForU2 | String  | No       |         |
+| ratingForU2 | Number  | No       | 5       |
+| startsAt    | Number  | No       |         |
+| endsAt      | Number  | No       |         |
 
 ###### RESPONSE
 
@@ -278,18 +278,18 @@ Social => {
 { ...Agreement }
 ```
 
-#### 🟡 `PUT: /api/v1/user/agreement/:id` ✔️ 
-  
+#### 🟡 `PUT: /api/v1/user/agreement/:id` ✔️
+
 ###### BODY
 
-| KEY             | VALUE       | REQUIRED | DEFAULT |
-| --------------- | ----------- | -------- | ------- |
-| reviewForU1     | String      | No       |         |
-| ratingForU1     | Number      | No       | 5       |
-| reviewForU2     | String      | No       |         |
-| ratingForU2     | Number      | No       | 5       |
-| startsAt        | Number      | No       |         |
-| endsAt          | Number      | No       |         |
+| KEY         | VALUE  | REQUIRED | DEFAULT |
+| ----------- | ------ | -------- | ------- |
+| reviewForU1 | String | No       |         |
+| ratingForU1 | Number | No       | 5       |
+| reviewForU2 | String | No       |         |
+| ratingForU2 | Number | No       | 5       |
+| startsAt    | Number | No       |         |
+| endsAt      | Number | No       |         |
 
 ###### RESPONSE
 
@@ -297,7 +297,69 @@ Social => {
 { ...Agreement }
 ```
 
-#### 🟡 `PUT: /api/v1/user/toggleFollow/:id` ✔️ 
+#### 🟠 `POST: /api/v1/user/metatx` ✔️
+
+###### BODY
+
+| KEY       | REQUIRED |
+| --------- | -------- |
+| tx        | Yes      |
+| signature | Yes      |
+
+```js
+// Example snippet for frontend
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+await provider.send('eth_requestAccounts', []);
+
+const signer = provider.getSigner();
+const from = await signer.getAddress(); // My wallet address
+
+const forwarderC = new ethers.Contract(
+  '0x740f39D16226c00bfb7932a8087778a7Ce6A92FB',
+  Forwarder.abi,
+  signer
+);
+const contractInterface = new ethers.utils.Interface(AskGPT.abi);
+
+const data = contractInterface.encodeFunctionData('createAgreement', [
+  'ipfsUri',
+  17882979712,
+  'Movie Script Writer',
+  '0x1fA331B16655AE94eAe82FA5f89950d9C977903A',
+]);
+
+const nonce = await forwarderC.getNonce(from);
+const tx = {
+  from,
+  to: '0x8E38A526b11a42c5baEB5866d9dad0e6f1b2790C', // Target contract address (AskGPT or Agreement subcontract)
+  value: 0,
+  nonce,
+  data,
+};
+const digest = await forwarderC.getDigest(
+  tx.from,
+  tx.to,
+  tx.value,
+  tx.nonce,
+  tx.data
+);
+const signature = await signer.signMessage(ethers.utils.arrayify(digest));
+
+const res = await axios.post('http://localhost/api/v1/user/metatx', {
+  tx,
+  signature,
+});
+```
+
+###### RESPONSE
+
+```js
+{
+  success: Boolean;
+}
+```
+
+#### 🟡 `PUT: /api/v1/user/toggleFollow/:id` ✔️
 
 ###### RESPONSE
 
@@ -305,7 +367,7 @@ Social => {
 { ...User }
 ```
 
-#### 🟡 `PUT: /api/v1/user/verify/:id` ⚠️ 
+#### 🟡 `PUT: /api/v1/user/verify/:id` ⚠️
 
 ###### RESPONSE
 
@@ -320,7 +382,7 @@ Social => {
 ###### RESPONSE
 
 ```js
-[{ ...Brand }]
+[{ ...Brand }];
 ```
 
 #### 🟢 `GET: /api/v1/brand/:id` ✔️
@@ -336,23 +398,23 @@ Social => {
 ###### RESPONSE
 
 ```js
-[{ ...Brand }]
+[{ ...Brand }];
 ```
 
 #### 🟠 `POST: /api/v1/brand/` ✔️
 
 ###### BODY
 
-| KEY             | VALUE       | REQUIRED | DEFAULT |
-| --------------- | ----------- | -------- | ------- |
-| name            | String      | Yes      |         |
-| nickname        | String      | No       |         |
-| description     | String      | No       |         |
-| manager         | user_id     | No       |         |
-| skills          | [String]    | No       |         |
-| img             | String      | No       |         |
-| secondaryImg    | String      | No       |         |
-| isVerified      | Boolean     | No       | false   |
+| KEY          | VALUE    | REQUIRED | DEFAULT |
+| ------------ | -------- | -------- | ------- |
+| name         | String   | Yes      |         |
+| nickname     | String   | No       |         |
+| description  | String   | No       |         |
+| manager      | user_id  | No       |         |
+| skills       | [String] | No       |         |
+| img          | String   | No       |         |
+| secondaryImg | String   | No       |         |
+| isVerified   | Boolean  | No       | false   |
 
 ###### RESPONSE
 
@@ -360,19 +422,19 @@ Social => {
 { ...Brand }
 ```
 
-#### 🟡 `PUT: /api/v1/brand/:id` ✔️ 
-  
+#### 🟡 `PUT: /api/v1/brand/:id` ✔️
+
 ###### BODY
 
-| KEY             | VALUE       | REQUIRED | DEFAULT |
-| --------------- | ----------- | -------- | ------- |
-| name            | String      | Yes      |         |
-| nickname        | String      | No       |         |
-| description     | String      | No       |         |
-| skills          | [String]    | No       |         |
-| img             | String      | No       |         |
-| secondaryImg    | String      | No       |         |
-| isVerified      | Boolean     | No       | false   |
+| KEY          | VALUE    | REQUIRED | DEFAULT |
+| ------------ | -------- | -------- | ------- |
+| name         | String   | Yes      |         |
+| nickname     | String   | No       |         |
+| description  | String   | No       |         |
+| skills       | [String] | No       |         |
+| img          | String   | No       |         |
+| secondaryImg | String   | No       |         |
+| isVerified   | Boolean  | No       | false   |
 
 ###### RESPONSE
 
@@ -380,7 +442,7 @@ Social => {
 { ...Brand }
 ```
 
-#### 🟡 `PUT: /api/v1/brand/verify/:id` ⚠️ 
+#### 🟡 `PUT: /api/v1/brand/verify/:id` ⚠️
 
 ###### RESPONSE
 
@@ -388,7 +450,7 @@ Social => {
 { ...Brand }
 ```
 
-#### 🟡 `PUT: /api/v1/brand/blacklist/:id` ⚠️ 
+#### 🟡 `PUT: /api/v1/brand/blacklist/:id` ⚠️
 
 ###### RESPONSE
 
@@ -404,45 +466,45 @@ Social => {
 
 ###### Query
 
-| KEY    | VALUE     | REQUIRED | DEFAULT |
-| ------ | --------- | -------- | ------- |
-| q      | String    | No       | ""      |
+| KEY | VALUE  | REQUIRED | DEFAULT |
+| --- | ------ | -------- | ------- |
+| q   | String | No       | ""      |
 
 ###### RESPONSE
 
 ```js
-[{ ...Brand }]
+[{ ...Brand }];
 ```
 
 #### 🟢 `GET: /api/v1/brand/brands/paginated` ✔️
 
 ###### Query
 
-| KEY    | VALUE     | REQUIRED | DEFAULT |
-| ------ | --------- | -------- | ------- |
-| page   | Number    | No       | 1       |
-| size   | Number    | No       | 10      |
+| KEY  | VALUE  | REQUIRED | DEFAULT |
+| ---- | ------ | -------- | ------- |
+| page | Number | No       | 1       |
+| size | Number | No       | 10      |
 
 ###### RESPONSE
 
 ```js
-[{ ...Brand }]
+[{ ...Brand }];
 ```
 
 ### GPT
 
-#### 🟠 `POST: /api/v1/gpt/ask` ✔️ 
+#### 🟠 `POST: /api/v1/gpt/ask` ✔️
 
 ###### BODY
 
-| KEY    | VALUE    | REQUIRED | DEFAULT |
-| -------| -------- | -------- | ------- |
-| prompt | String   | Yes      |         |
+| KEY    | VALUE  | REQUIRED | DEFAULT |
+| ------ | ------ | -------- | ------- |
+| prompt | String | Yes      |         |
 
 ###### RESPONSE
 
 ```js
-String
+String;
 ```
 
 ### IPFS
@@ -486,16 +548,16 @@ Any JSON object
 ###### RESPONSE
 
 ```js
-[{ ...Room }]
+[{ ...Room }];
 ```
 
 #### 🟠 `POST: /api/v1/chat/room` ✔️
 
 ###### BODY
 
-| KEY      | VALUE   | REQUIRED | DEFAULT  |
-| -------- | ------- | -------- | -------- |
-| receiver | user_id | Yes      |          |
+| KEY      | VALUE   | REQUIRED | DEFAULT |
+| -------- | ------- | -------- | ------- |
+| receiver | user_id | Yes      |         |
 
 ###### RESPONSE
 

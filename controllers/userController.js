@@ -1,9 +1,12 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+
 const { ethers } = require('ethers');
 
 const User = require('../models/userModel');
 const Agreement = require('../models/agreementModel');
+
+const { getMethods } = require('../config/blockchain');
 
 dotenv.config({ path: '../.env' });
 
@@ -230,4 +233,18 @@ exports.updateAgreement = async (req, res) => {
     new: true,
   });
   return res.status(200).json(ad);
+};
+
+exports.executeMetaTransaction = async (req, res) => {
+  try {
+    const { tx, signature } = req.body;
+
+    const { forwarderC } = await getMethods();
+
+    await (await forwarderC.execute(tx, signature, { value: 0 })).wait();
+
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    return res.status(200).json({ success: false, error: err.message });
+  }
 };
