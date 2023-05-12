@@ -24,7 +24,7 @@ const get_response = async (user_input) => {
     let response = await openai.createCompletion({
       model: model_engine,
       prompt: user_input,
-      max_tokens: 1024,
+      max_tokens: 2000,
       n: 1,
     });
 
