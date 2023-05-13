@@ -25,6 +25,7 @@
   _id: user_id,
   walletAddress: String,
   username: String,
+  descriptorTitle: String,
   bio: String,
   email: String,
   profileImage: String, // IPFS string
@@ -84,6 +85,8 @@
 {
   _id: agreement_id,
   name: String,
+  agreementUri: String, // IPFS URI
+  contractAddress: String,
   user1: user_id,
   user2: user_id,
   reviewForU1: String,
@@ -232,18 +235,19 @@
 
 ###### BODY
 
-| KEY           | VALUE    | REQUIRED | DEFAULT |
-| ------------- | -------- | -------- | ------- |
-| walletAddress | String   | Yes      |         |
-| username      | String   | No       | Unnamed |
-| bio           | String   | No       |         |
-| email         | String   | No       |         |
-| profileImage  | String   | No       |         |
-| profileBanner | String   | No       |         |
-| socialHandles | [Social] | No       |         |
-| scripts       | [String] | No       |         |
-| rate          | Number   | No       | 0       |
-| skills        | [String] | No       |         |
+| KEY             | VALUE    | REQUIRED | DEFAULT |
+| --------------- | -------- | -------- | ------- |
+| walletAddress   | String   | Yes      |         |
+| username        | String   | No       | Unnamed |
+| descriptorTitle | String   | No       |
+| bio             | String   | No       |         |
+| email           | String   | No       |         |
+| profileImage    | String   | No       |         |
+| profileBanner   | String   | No       |         |
+| socialHandles   | [Social] | No       |         |
+| scripts         | [String] | No       |         |
+| rate            | Number   | No       | 0       |
+| skills          | [String] | No       |         |
 
 Social => {
 name: String,
@@ -260,17 +264,19 @@ link: String
 
 ###### BODY
 
-| KEY         | VALUE   | REQUIRED | DEFAULT |
-| ----------- | ------- | -------- | ------- |
-| name        | String  | Yes      |         |
-| user1       | user_id | No       |         |
-| user2       | user_id | No       |         |
-| reviewForU1 | String  | No       |         |
-| ratingForU1 | Number  | No       | 5       |
-| reviewForU2 | String  | No       |         |
-| ratingForU2 | Number  | No       | 5       |
-| startsAt    | Number  | No       |         |
-| endsAt      | Number  | No       |         |
+| KEY             | VALUE   | REQUIRED | DEFAULT |
+| --------------- | ------- | -------- | ------- |
+| name            | String  | Yes      |         |
+| agreementUri    | String  | No       |         |
+| contractAddress | String  | No       |         |
+| user1           | user_id | No       |         |
+| user2           | user_id | No       |         |
+| reviewForU1     | String  | No       |         |
+| ratingForU1     | Number  | No       | 5       |
+| reviewForU2     | String  | No       |         |
+| ratingForU2     | Number  | No       | 5       |
+| startsAt        | Number  | No       |         |
+| endsAt          | Number  | No       |         |
 
 ###### RESPONSE
 
@@ -282,14 +288,15 @@ link: String
 
 ###### BODY
 
-| KEY         | VALUE  | REQUIRED | DEFAULT |
-| ----------- | ------ | -------- | ------- |
-| reviewForU1 | String | No       |         |
-| ratingForU1 | Number | No       | 5       |
-| reviewForU2 | String | No       |         |
-| ratingForU2 | Number | No       | 5       |
-| startsAt    | Number | No       |         |
-| endsAt      | Number | No       |         |
+| KEY             | VALUE  | REQUIRED | DEFAULT |
+| --------------- | ------ | -------- | ------- |
+| contractAddress | String | No       |         |
+| reviewForU1     | String | No       |         |
+| ratingForU1     | Number | No       | 5       |
+| reviewForU2     | String | No       |         |
+| ratingForU2     | Number | No       | 5       |
+| startsAt        | Number | No       |         |
+| endsAt          | Number | No       |         |
 
 ###### RESPONSE
 

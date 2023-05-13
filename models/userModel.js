@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 5,
   },
+  descriptorTitle: {
+    type: String,
+    default: "",
+  },
   bio: {
     type: String,
   },

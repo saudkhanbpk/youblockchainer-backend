@@ -6,6 +6,12 @@ const AgreementSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    agreementUri: {
+      type: String,
+    },
+    contractAddress: {
+      type: String,
+    },
     user1: { // Initiator (one who  pays)
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
