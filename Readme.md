@@ -139,7 +139,7 @@
 ###### RESPONSE
 
 ```js
-[{ ...User }];
+[{ ...User }]
 ```
 
 #### 🟢 `GET: /api/v1/user/verified` ✔️
@@ -147,7 +147,7 @@
 ###### RESPONSE
 
 ```js
-[{ ...User }];
+[{ ...User }]
 ```
 
 #### 🟢 `GET: /api/v1/user/pending` ✔️
@@ -155,7 +155,7 @@
 ###### RESPONSE
 
 ```js
-[{ ...User }];
+[{ ...User }]
 ```
 
 #### 🟢 `GET: /api/v1/user/users/paginated` ✔️
@@ -171,7 +171,7 @@
 ###### RESPONSE
 
 ```js
-[{ ...User }];
+[{ ...User }]
 ```
 
 #### 🟢 `GET: /api/v1/user/users/search` ✔️
@@ -186,7 +186,7 @@
 ###### RESPONSE
 
 ```js
-[{ ...User }];
+[{ ...User }]
 ```
 
 #### 🟢 `GET: /api/v1/user/login` ✔️
@@ -304,6 +304,14 @@ link: String
 { ...Agreement }
 ```
 
+#### 🟢 `GET: /api/v1/user/agreements/:user_id` ✔️
+
+###### RESPONSE
+
+```js
+[{ ...Agreement }]
+```
+
 #### 🟠 `POST: /api/v1/user/metatx` ✔️
 
 ###### BODY
@@ -389,7 +397,7 @@ const res = await axios.post('http://localhost/api/v1/user/metatx', {
 ###### RESPONSE
 
 ```js
-[{ ...Brand }];
+[{ ...Brand }]
 ```
 
 #### 🟢 `GET: /api/v1/brand/:id` ✔️
@@ -405,7 +413,7 @@ const res = await axios.post('http://localhost/api/v1/user/metatx', {
 ###### RESPONSE
 
 ```js
-[{ ...Brand }];
+[{ ...Brand }]
 ```
 
 #### 🟠 `POST: /api/v1/brand/` ✔️
@@ -480,7 +488,7 @@ const res = await axios.post('http://localhost/api/v1/user/metatx', {
 ###### RESPONSE
 
 ```js
-[{ ...Brand }];
+[{ ...Brand }]
 ```
 
 #### 🟢 `GET: /api/v1/brand/brands/paginated` ✔️
@@ -495,7 +503,7 @@ const res = await axios.post('http://localhost/api/v1/user/metatx', {
 ###### RESPONSE
 
 ```js
-[{ ...Brand }];
+[{ ...Brand }]
 ```
 
 ### GPT
@@ -555,7 +563,7 @@ Any JSON object
 ###### RESPONSE
 
 ```js
-[{ ...Room }];
+[{ ...Room }]
 ```
 
 #### 🟠 `POST: /api/v1/chat/room` ✔️

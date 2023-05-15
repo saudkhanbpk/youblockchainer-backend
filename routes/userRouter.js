@@ -18,6 +18,7 @@ const {
   getNonVerifiedCreators,
   newAgreement,
   updateAgreement,
+  getUserAgreements,
   executeMetaTransaction
 } = require('../controllers/userController');
 
@@ -55,6 +56,7 @@ userRouter.put(
   asyncHandler(verifyCreator)
 );
 
+userRouter.get('/agreements/:user_id', cookieAuthRequired(), asyncHandler(getUserAgreements));
 userRouter.post('/agreement', cookieAuthRequired(), asyncHandler(newAgreement));
 userRouter.put('/agreement/:id', cookieAuthRequired(), asyncHandler(updateAgreement));
 

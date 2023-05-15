@@ -121,6 +121,27 @@ exports.getUserById = async (req, res) => {
   res.status(200).json(user);
 };
 
+exports.getUserAgreements = async (req, res) => {
+  const user = await User.findById(req.params.user_id).populate(
+    'followers following agreements'
+  ).populate({
+    path: 'agreements',
+    model: 'Agreement',
+    populate: [
+      {
+        path: 'user1',
+        model: 'User',
+      },
+      {
+        path: 'user2',
+        model: 'User',
+      },
+    ],
+  });
+  if (!user) return res.status(404).json('No user found');
+  res.status(200).json(user.agreements);
+};
+
 exports.updateProfile = async (req, res) => {
   const ad = await User.findById(req.user._id);
   if (!ad.isAdmin && req.body.isAdmin) req.body.isAdmin = false;
