@@ -262,9 +262,9 @@ exports.executeMetaTransaction = async (req, res) => {
 
     const { forwarderC } = await getMethods();
 
-    await (await forwarderC.execute(tx, signature, { value: 0 })).wait();
+    const resp = await (await forwarderC.execute(tx, signature, { value: 0 })).wait();
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, data: resp });
   } catch (err) {
     return res.status(200).json({ success: false, error: err.message });
   }

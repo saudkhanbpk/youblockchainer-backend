@@ -371,6 +371,7 @@ const res = await axios.post('http://localhost/api/v1/user/metatx', {
 ```js
 {
   success: Boolean;
+  data: OBJECT
 }
 ```
 
