@@ -71,7 +71,7 @@ app.get('*', (req, res) => {
 });
 
 // access env vars
-const PORT = 80;
+const PORT = 8000;
 
 const server = app.listen(
   PORT,
