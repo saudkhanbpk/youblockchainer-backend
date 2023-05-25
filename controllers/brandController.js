@@ -25,7 +25,7 @@ exports.getBrands = async (req, res) => {
 };
 
 exports.newBrand = async (req, res) => {
-  const ad = await Brand.create(req.body);
+  const ad = await Brand.create({ ...req.body, manager: req.user._id });
   const ad2 = await Brand.findById(ad._id)
     .populate('manager')
     .populate({
@@ -79,8 +79,8 @@ exports.getBrandById = async (req, res) => {
   res.status(200).json(ad);
 };
 
-exports.getBrandByWalletAddress = async (req, res) => {
-  const ad = await Brand.find({ walletAddress: req.params.walletAddress })
+exports.getBrandByManager = async (req, res) => {
+  const ad = await Brand.find({ manager: req.params.manager_id })
     .populate('manager')
     .populate({
       path: 'manager',

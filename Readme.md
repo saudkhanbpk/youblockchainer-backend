@@ -409,7 +409,7 @@ const res = await axios.post('http://localhost/api/v1/user/metatx', {
 { ...Brand }
 ```
 
-#### 🟢 `GET: /api/v1/brand/user/:walletAddress` ✔️
+#### 🟢 `GET: /api/v1/brand/user/:manager_id` ✔️
 
 ###### RESPONSE
 
@@ -426,7 +426,6 @@ const res = await axios.post('http://localhost/api/v1/user/metatx', {
 | name         | String   | Yes      |         |
 | nickname     | String   | No       |         |
 | description  | String   | No       |         |
-| manager      | user_id  | No       |         |
 | skills       | [String] | No       |         |
 | img          | String   | No       |         |
 | secondaryImg | String   | No       |         |

@@ -14,7 +14,7 @@ const {
   searchBrands,
   getBrandsPaginated,
   blacklistBrand,
-  getBrandByWalletAddress,
+  getBrandByManager,
 } = require('../controllers/brandController');
 
 const brandRouter = express.Router();
@@ -29,7 +29,7 @@ brandRouter.delete(
 );
 
 brandRouter.get('/:id', asyncHandler(getBrandById));
-brandRouter.get('/user/:walletAddress', asyncHandler(getBrandByWalletAddress));
+brandRouter.get('/user/:manager_id', asyncHandler(getBrandByManager));
 brandRouter.put('/:id', cookieAuthRequired(), asyncHandler(updateBrand));
 brandRouter.delete(
   '/:id',
