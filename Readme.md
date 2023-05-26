@@ -207,14 +207,6 @@
 }
 ```
 
-#### 🟢 `GET: /api/v1/user/users/:walletAddress` ✔️
-
-###### RESPONSE
-
-```js
-{ ...User }
-```
-
 #### 🟢 `GET: /api/v1/user/users/:id` ✔️
 
 ###### RESPONSE

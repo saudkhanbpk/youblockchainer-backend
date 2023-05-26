@@ -38,7 +38,7 @@ userRouter.get(
 );
 userRouter.get('/users/paginated', asyncHandler(getUsersPaginated));
 
-userRouter.get('/users/:walletAddress', asyncHandler(getUserByWalletAddress));
+// userRouter.get('/users/:walletAddress', asyncHandler(getUserByWalletAddress));
 userRouter.get('/users/:id', asyncHandler(getUserById));
 userRouter.get('/me', cookieAuthRequired(), asyncHandler(getMe));
 userRouter.put('/me', cookieAuthRequired(), asyncHandler(updateProfile));
