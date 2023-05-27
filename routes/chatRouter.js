@@ -8,12 +8,15 @@ const {
   getChats,
   newConversation,
   deleteConversation,
-  deleteMsg
+  deleteMsg,
+  getRoom
 } = require('../controllers/chatController');
 
 const chatRouter = express.Router();
 
 chatRouter.get('/', authRequired(), asyncHandler(getRooms));
+
+chatRouter.get('/rooms/:id', authRequired(), asyncHandler(getRoom));
 
 chatRouter.post('/room', authRequired(), asyncHandler(newConversation));
 chatRouter.get('/room/:id', authRequired(), asyncHandler(getChats));

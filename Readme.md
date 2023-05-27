@@ -572,12 +572,20 @@ Any JSON object
 { ...Room }
 ```
 
-#### 🟢 `GET: /api/v1/chat/room/:id` ✔️
+#### 🟢 `GET: /api/v1/chat/rooms/:id` ✔️
 
 ###### RESPONSE
 
 ```js
 { ...Room }
+```
+
+#### 🟢 `GET: /api/v1/chat/room/:id` ✔️
+
+###### RESPONSE
+
+```js
+[{ ...Chat }]
 ```
 
 #### 🔴 `DELETE: /api/v1/chat/room/:id` ✔️

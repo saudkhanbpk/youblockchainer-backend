@@ -10,6 +10,12 @@ exports.getRooms = async (req, res) => {
   res.status(200).json(rooms);
 };
 
+exports.getRoom = async (req, res) => {
+  const room = await Room.findById(req.params.id).populate('p1 p2');
+  
+  res.status(200).json(room);
+};
+
 exports.newConversation = async (req, res) => {
   const { receiver } = req.body;
   
