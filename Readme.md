@@ -2,9 +2,9 @@
 
 ###### LINKS
 
-- [Backend Server](http://13.51.252.66)
+- [Main Server](http://app.myreeldream.ai)
 
-- [Landing Page](http://13.53.138.223)
+- [Landing Page](http://myreeldream.ai)
 
 ###### SYMBOLS
 
