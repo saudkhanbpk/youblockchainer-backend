@@ -238,7 +238,7 @@
 | email           | String   | No       |         |
 | profileImage    | String   | No       |         |
 | profileBanner   | String   | No       |         |
-| videoIntro      | String   | Yes      |         |
+| videoIntro      | String   | No       |         |
 | videoVisibility | Boolean  | No       | True    |
 | socialHandles   | [Social] | No       |         |
 | scripts         | [String] | No       |         |
