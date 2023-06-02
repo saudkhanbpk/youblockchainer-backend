@@ -39,6 +39,10 @@ const UserSchema = new mongoose.Schema({
 		type: String, // IPFS string
     required: true,
 	},
+  videoVisibility: {
+		type: Boolean,
+    default: true,
+	},
   socialHandles: [
     {
       name: {

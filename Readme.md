@@ -31,6 +31,7 @@
   profileImage: String, // IPFS string
   profileBanner: String, // IPFS string
   videoIntro: String, // IPFS string
+  videoVisibility: Boolean,
   email: String,
   socialHandles: [
     {
@@ -238,6 +239,7 @@
 | profileImage    | String   | No       |         |
 | profileBanner   | String   | No       |         |
 | videoIntro      | String   | Yes      |         |
+| videoVisibility | Boolean  | No       | True    |
 | socialHandles   | [Social] | No       |         |
 | scripts         | [String] | No       |         |
 | rate            | Number   | No       | 0       |
