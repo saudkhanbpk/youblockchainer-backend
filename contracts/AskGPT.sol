@@ -168,6 +168,7 @@ contract Agreement {
 
     // ---------------- Structs -------------------
     struct MilestoneInfo {
+        uint256 milestoneId;
         string name;
         uint256 amount;
         string description;
@@ -255,6 +256,7 @@ contract Agreement {
     ) public onlyManager {
         milestoneCount++;
         milestones[milestoneCount] = MilestoneInfo(
+            milestoneCount,
             _name,
             _amount,
             _description,
@@ -274,6 +276,7 @@ contract Agreement {
     ) public onlyManager {
         require(!milestones[_milestoneId].funded, "Milestone already funded!");
         milestones[_milestoneId] = MilestoneInfo(
+            _milestoneId,
             _name,
             _amount,
             _description,

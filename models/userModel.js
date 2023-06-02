@@ -35,6 +35,10 @@ const UserSchema = new mongoose.Schema({
   profileBanner: {
 		type: String, // IPFS string
 	},
+  videoIntro: {
+		type: String, // IPFS string
+    required: true,
+	},
   socialHandles: [
     {
       name: {

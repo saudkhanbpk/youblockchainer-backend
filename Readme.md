@@ -30,6 +30,7 @@
   email: String,
   profileImage: String, // IPFS string
   profileBanner: String, // IPFS string
+  videoIntro: String, // IPFS string
   email: String,
   socialHandles: [
     {
@@ -231,11 +232,12 @@
 | --------------- | -------- | -------- | ------- |
 | walletAddress   | String   | Yes      |         |
 | username        | String   | No       | Unnamed |
-| descriptorTitle | String   | No       |
+| descriptorTitle | String   | No       |         |
 | bio             | String   | No       |         |
 | email           | String   | No       |         |
 | profileImage    | String   | No       |         |
 | profileBanner   | String   | No       |         |
+| videoIntro      | String   | Yes      |         |
 | socialHandles   | [Social] | No       |         |
 | scripts         | [String] | No       |         |
 | rate            | Number   | No       | 0       |
