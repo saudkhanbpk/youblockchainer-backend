@@ -9,7 +9,7 @@ dotenv.config({ path: './.env' });
 
 // Goerli Testnet
 const provider = new ethers.providers.JsonRpcProvider(
-  'https://rpc-mumbai.maticvigil.com'
+  'https://goerli.base.org'
 );
 
 let forwarderC;

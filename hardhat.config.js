@@ -50,17 +50,6 @@ module.exports = {
       accounts: [`0x${privatekey}`],
       network_id: 80001,
     },
-    ethereumTestnet: {
-      // Goerli
-      url: `https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161`,
-      accounts: [`0x${privatekey}`],
-      network_id: 5,
-    },
-    ethereumMainnet: {
-      url: `https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161`,
-      accounts: [`0x${privatekey}`],
-      network_id: 1,
-    },
   },
   etherscan: {
     apiKey: {

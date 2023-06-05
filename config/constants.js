@@ -1,6 +1,6 @@
-const contractAddress = "0xcF102EFFD41Ca54cd0B5C95dd8d934eb9BF7fB10";
+const contractAddress = "0xDF4FEee8ce2971b1731842C99A5fd41B7FBA74c4";
 
-const forwarderAddress = "0x740f39D16226c00bfb7932a8087778a7Ce6A92FB";
+const forwarderAddress = "0x2604441A291eF0EEba319a4Fd959Fa8e96899e8E";
 
 module.exports = {
   contractAddress,
