@@ -6,7 +6,7 @@ contract AskGPT {
     // -------------- State Variables ------------
     uint256 public marketFee = 25; // 2.5% (MarketPlace)
     uint256 public agreementCount; // Number of Agreements
-    address public creator;
+    address public admin;
     address private forwarder;
 
     // -------------- Structs ---------------------
@@ -30,7 +30,7 @@ contract AskGPT {
     );
 
     constructor(address _forwarder) {
-        creator = msg.sender;
+        admin = msg.sender;
         forwarder = _forwarder;
     }
 
@@ -38,8 +38,8 @@ contract AskGPT {
 
     fallback() external payable {}
 
-    modifier onlyOwner() {
-        require(msgSender() == creator, "Not the manager!");
+    modifier onlyAdmin() {
+        require(msgSender() == admin, "Not the admin!");
         _;
     }
 
@@ -76,7 +76,7 @@ contract AskGPT {
                 address(this),
                 _name,
                 marketFee,
-                creator,
+                admin,
                 forwarder
             )
         );
@@ -131,11 +131,11 @@ contract AskGPT {
     }
 
     // -------------- Admin Functions -------------
-    function setMarketFee(uint256 _amount) public onlyOwner {
+    function setMarketFee(uint256 _amount) public onlyAdmin {
         marketFee = _amount;
     }
 
-    function withdraw() public onlyOwner {
+    function withdraw() public onlyAdmin {
         address payable to = payable(msgSender());
         to.transfer(address(this).balance);
     }
@@ -147,7 +147,7 @@ contract Agreement {
     string name;
     uint256 marketFee;
     address agreementFactoryAddress;
-    address creator;
+    address admin;
     address manager;
     address secondParty;
     uint256 agreementId;
@@ -203,11 +203,11 @@ contract Agreement {
         address _agreementFactory,
         string memory _name,
         uint256 _marketFee,
-        address _creator,
+        address _admin,
         address _forwarder
     ) {
         agreementId = _agreementCount;
-        creator = _creator;
+        admin = _admin;
         manager = _firstParty;
         secondParty = _secondParty;
         agreementUri = _agreementUri;
@@ -230,7 +230,15 @@ contract Agreement {
 
     modifier onlyDisputeResolver() {
         require(
-            msgSender() == manager || msgSender() == creator,
+            msgSender() == manager || msgSender() == admin,
+            "Not the dispute resolver!"
+        );
+        _;
+    }
+
+    modifier onlyDisputeResolver2() {
+        require(
+            msgSender() == admin || msgSender() == secondParty,
             "Not the dispute resolver!"
         );
         _;
@@ -296,7 +304,7 @@ contract Agreement {
     }
 
     function fundMilestone(uint256 _milestoneId) public payable onlyManager {
-        uint256 marketFeeAmount = (msg.value * marketFee) / 1000;
+        uint256 marketFeeAmount = (milestones[_milestoneId].amount * marketFee) / 1000;
 
         require(!milestones[_milestoneId].funded, "Milestone already funded!");
         require(
@@ -361,7 +369,7 @@ contract Agreement {
         emit RequestUpdated(_requestId, _amount, block.timestamp);
     }
 
-    function grantRefund(uint256 _requestId) public payable onlyDisputeResolver {
+    function grantRefund(uint256 _requestId) public payable onlyDisputeResolver2 {
         require(!refunds[_requestId].resolved, "Request already resolved!");
         
         refunds[_requestId].resolved = true;
@@ -436,7 +444,7 @@ contract Agreement {
             refundCount,
             name,
             marketFee,
-            creator
+            admin
         );
     }
 }
