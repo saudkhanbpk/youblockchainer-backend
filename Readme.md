@@ -28,6 +28,8 @@
   descriptorTitle: String,
   bio: String,
   email: String,
+  country: String,
+  age: Number,
   profileImage: String, // IPFS string
   profileBanner: String, // IPFS string
   videoIntro: String, // IPFS string
@@ -55,6 +57,7 @@
   agreements: [
     agreement_id
   ],
+  isActor: Boolean,
   isExpert: Boolean,
   isVerified: Boolean,
   isAdmin: Boolean,
@@ -236,6 +239,8 @@
 | descriptorTitle | String   | No       |         |
 | bio             | String   | No       |         |
 | email           | String   | No       |         |
+| age             | Number   | No       |         |
+| country         | String   | No       |         |
 | profileImage    | String   | No       |         |
 | profileBanner   | String   | No       |         |
 | videoIntro      | String   | No       |         |

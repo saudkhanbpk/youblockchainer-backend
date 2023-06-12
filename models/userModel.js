@@ -29,6 +29,12 @@ const UserSchema = new mongoose.Schema({
   email: {
 		type: String,
 	},
+  country: {
+    type: String,
+  },
+  age: {
+    type: Number,
+  },
   profileImage: {
 		type: String, // IPFS string
 	},
@@ -76,6 +82,9 @@ const UserSchema = new mongoose.Schema({
       ref: 'Agreement',
     },
   ],
+  isActor: {
+    type: Boolean,
+  },
   isExpert: {
     type: Boolean,
     default: false,
