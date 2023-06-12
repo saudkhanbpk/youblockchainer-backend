@@ -178,6 +178,7 @@ contract Agreement {
     }
 
     struct RefundInfo {
+        uint256 requestId;
         uint256 milestoneId;
         uint256 amount;
         bool resolved;
@@ -190,7 +191,7 @@ contract Agreement {
     event MilestoneFunded(uint256 indexed _milestoneId, uint256 _timestamp);
     event PaymentRequested(uint256 indexed _milestoneId, uint256 _timestamp);
     event MilestoneApproved(uint256 indexed _milestoneId, uint256 _timestamp);
-    event RefundRequested(uint256 indexed _milestoneId, uint256 _amount, uint256 _timestamp);
+    event RefundRequested(uint256 indexed _requestId, uint256 indexed _milestoneId, uint256 _amount, uint256 _timestamp);
     event RequestUpdated(uint256 indexed _requestId, uint256 _amount, uint256 _timestamp);
     event RefundGranted(uint256 indexed _requestId, uint256 _timestamp);
 
@@ -358,9 +359,11 @@ contract Agreement {
             "Refund amount cannot be greater than the milestone amount!"
         );
 
-        refunds[refundCount] = RefundInfo(_milestoneId, _amount, false);
+        refundCount++;
 
-        emit RefundRequested(_milestoneId, _amount, block.timestamp);
+        refunds[refundCount] = RefundInfo(refundCount, _milestoneId, _amount, false);
+
+        emit RefundRequested(refundCount, _milestoneId, _amount, block.timestamp);
     }
 
     function updateRequest(
