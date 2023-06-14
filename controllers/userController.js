@@ -252,7 +252,7 @@ exports.newAgreement = async (req, res) => {
 exports.updateAgreement = async (req, res) => {
   const ad = await Agreement.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
-  });
+  }).populate('user1 user2');
   return res.status(200).json(ad);
 };
 

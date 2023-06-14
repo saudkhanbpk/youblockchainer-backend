@@ -310,7 +310,6 @@ contract Agreement {
     }
 
     function fundMilestone(uint256 _milestoneId) public payable onlyManager {
-        require(endsAt == 0, "Agreement has ended");
         uint256 marketFeeAmount = (milestones[_milestoneId].amount * marketFee) / 1000;
 
         require(!milestones[_milestoneId].funded, "Milestone already funded!");
@@ -327,7 +326,6 @@ contract Agreement {
     }
 
     function requestPayment(uint256 _milestoneId) public onlyReceiver {
-        require(endsAt == 0, "Agreement has ended");
         require(milestones[_milestoneId].funded, "Milestone isn't funded!");
         require(!milestones[_milestoneId].paid, "Milestone already approved!");
 
@@ -337,7 +335,6 @@ contract Agreement {
     }
 
     function approveMilestone(uint256 _milestoneId) public payable onlyDisputeResolver {
-        require(endsAt == 0, "Agreement has ended");
         require(milestones[_milestoneId].funded, "Milestone isn't funded!");
         require(!milestones[_milestoneId].paid, "Milestone already approved!");
 
@@ -351,7 +348,6 @@ contract Agreement {
         uint256 _milestoneId,
         uint256 _amount
     ) public onlyDisputeResolver {
-        require(endsAt == 0, "Agreement has ended");
         require(milestones[_milestoneId].funded, "Milestone isn't funded!");
         require(!milestones[_milestoneId].paid, "Milestone already approved!");
         require(
@@ -370,7 +366,6 @@ contract Agreement {
         uint256 _requestId,
         uint256 _amount
     ) public onlyDisputeResolver {
-        require(endsAt == 0, "Agreement has ended");
         require(!refunds[_requestId].resolved, "Request already resolved!");
         require(
             _amount <= milestones[refunds[_requestId].milestoneId].amount,
@@ -383,7 +378,6 @@ contract Agreement {
     }
 
     function grantRefund(uint256 _requestId) public payable onlyDisputeResolver2 {
-        require(endsAt == 0, "Agreement has ended");
         require(!refunds[_requestId].resolved, "Request already resolved!");
         
         refunds[_requestId].resolved = true;
