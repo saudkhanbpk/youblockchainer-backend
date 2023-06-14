@@ -7,6 +7,7 @@ const User = require('../models/userModel');
 const Agreement = require('../models/agreementModel');
 
 const { getMethods } = require('../config/blockchain');
+const { contractAddress, forwarderAddress } = require('../config/constants');
 
 dotenv.config({ path: '../.env' });
 
@@ -254,6 +255,13 @@ exports.updateAgreement = async (req, res) => {
     new: true,
   }).populate('user1 user2');
   return res.status(200).json(ad);
+};
+
+exports.getContractAddress = async (req, res) => {
+  res.status(200).json({
+    contractAddress: contractAddress,
+    contractAddressF: forwarderAddress,
+  });
 };
 
 exports.executeMetaTransaction = async (req, res) => {

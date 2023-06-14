@@ -19,7 +19,8 @@ const {
   newAgreement,
   updateAgreement,
   getUserAgreements,
-  executeMetaTransaction
+  executeMetaTransaction,
+  getContractAddress
 } = require('../controllers/userController');
 
 const userRouter = express.Router();
@@ -61,5 +62,7 @@ userRouter.post('/agreement', cookieAuthRequired(), asyncHandler(newAgreement));
 userRouter.put('/agreement/:id', cookieAuthRequired(), asyncHandler(updateAgreement));
 
 userRouter.post('/metatx', cookieAuthRequired(), asyncHandler(executeMetaTransaction));
+
+userRouter.get('/contractAddress/latest', asyncHandler(getContractAddress));
 
 module.exports = userRouter;

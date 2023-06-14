@@ -133,6 +133,17 @@
 
 ### User
 
+#### 🟢 `GET: /api/v1/user/contractAddress/latest` ✔️
+
+###### RESPONSE
+
+```js
+{ 
+  contractAddress: String 
+  contractAddressF: String
+}
+```
+
 #### 🟢 `GET: /api/v1/user/users` ✔️
 
 ###### Query
