@@ -6,42 +6,24 @@ const initializeTransporter = async () => {
   try {
     // Support email
     transporter = nodemailer.createTransport({
-      host: "smtpout.secureserver.net",  
+      host: "mail.privateemail.com",  
       secure: true,
-      secureConnection: false, // TLS requires secureConnection to be false
-      tls: {
-          ciphers:'SSLv3'
-      },
-      requireTLS:true,
       port: 465,
-      debug: true,
       auth: {
         user: process.env.EMAIL,
         pass: process.env.PASS, 
       },
-      tls: {
-        rejectUnauthorized: false
-      }
     });
 
     // Casting email
     transporter2 = nodemailer.createTransport({
-      host: "smtpout.secureserver.net",  
+      host: "mail.privateemail.com",  
       secure: true,
-      secureConnection: false, // TLS requires secureConnection to be false
-      tls: {
-          ciphers:'SSLv3'
-      },
-      requireTLS:true,
       port: 465,
-      debug: true,
       auth: {
         user: process.env.EMAIL2,
         pass: process.env.PASS2, 
       },
-      tls: {
-        rejectUnauthorized: false
-      }
     });
   } catch (err) {
     console.log(err);
