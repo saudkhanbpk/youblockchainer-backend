@@ -157,14 +157,14 @@ exports.updateProfile = async (req, res) => {
 
   res.status(200).json(updatedUser);
 
-  // if (req.body.email && (!ad.email || ad.email === '')) {
-  //   const isMailSent = await sendMail({
-  //     email: req.body.email,
-  //     subject: 'Welcome to MyReelDream',
-  //     html: signupEmail(),
-  //     transporterNum: 1,
-  //   });
-  // }
+  if (req.body.email && (!ad.email || ad.email === '')) {
+    const isMailSent = await sendMail({
+      email: req.body.email,
+      subject: 'Welcome to MyReelDream',
+      html: signupEmail(),
+      transporterNum: 1,
+    });
+  }
 };
 
 exports.toggleFollow = async (req, res) => {
