@@ -19,7 +19,7 @@ initializeBlockchain();
 // OpenAI
 initializeOpenAI();
 // Nodemailer
-// initializeTransporter();
+initializeTransporter();
 
 // Create Express instance
 const app = express();
