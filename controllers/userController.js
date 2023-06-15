@@ -9,6 +9,9 @@ const Agreement = require('../models/agreementModel');
 const { getMethods } = require('../config/blockchain');
 const { contractAddress, forwarderAddress } = require('../config/constants');
 
+const { sendMail } = require('../utils/mailer');
+const signupEmail = require('../utils/signupEmail');
+
 dotenv.config({ path: '../.env' });
 
 exports.getUsers = async (req, res) => {
@@ -157,8 +160,8 @@ exports.updateProfile = async (req, res) => {
   // if (req.body.email && (!ad.email || ad.email === '')) {
   //   const isMailSent = await sendMail({
   //     email: req.body.email,
-  //     subject: 'Welcome to ____',
-  //     html: signupEmail,
+  //     subject: 'Welcome to MyReelDream',
+  //     html: signupEmail(),
   //     transporterNum: 1,
   //   });
   // }

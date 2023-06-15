@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { initializeBlockchain } = require('./config/blockchain');
 const { initializeOpenAI } = require('./utils/gpt');
+const { initializeTransporter } = require('./utils/mailer');
 
 // load env vars
 dotenv.config({ path: './.env' });
@@ -17,6 +18,8 @@ connectDB();
 initializeBlockchain();
 // OpenAI
 initializeOpenAI();
+// Nodemailer
+// initializeTransporter();
 
 // Create Express instance
 const app = express();
@@ -71,7 +74,7 @@ app.get('*', (req, res) => {
 });
 
 // access env vars
-const PORT = 80;
+const PORT = 3000;
 
 const server = app.listen(
   PORT,
