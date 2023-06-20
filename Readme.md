@@ -18,6 +18,19 @@
 
 ## Schemas
 
+### Config
+
+```js
+{
+  _id: config_id,
+  video1: String,
+  video2: String,
+  video3: String,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
 ### User
 
 ```js
@@ -611,3 +624,63 @@ Any JSON object
 #### 🔴 `DELETE: /api/v1/chat/room/:id` ✔️
 
 #### 🔴 `DELETE: /api/v1/chat/msg/:id` ✔️
+
+
+### Admin
+
+#### 🟢 `GET: /api/v1/admin/` ✔️
+
+###### RESPONSE
+
+```js
+{ ...Config }
+```
+
+#### 🟡 `PUT: /api/v1/admin/` ⚠️
+
+###### BODY
+
+| KEY          | VALUE    | REQUIRED | DEFAULT |
+| ------------ | -------- | -------- | ------- |
+| video1       | String   | Yes      |         |
+| video2       | String   | Yes      |         |
+| video3       | String   | Yes      |         |
+
+###### RESPONSE
+
+```js
+{ ...Config }
+```
+
+#### 🟠 `POST: /api/v1/admin/upload/aws` ⚠️
+
+###### BODY
+
+| KEY   | VALUE  | REQUIRED | DEFAULT |
+| ----- | ------ | -------- | ------- |
+| files | [file] | Yes      |         |
+
+###### RESPONSE
+
+```js
+{
+  success: Boolean,
+  urls: [String],
+}
+```
+
+#### 🟠 `POST: /api/v1/admin/delete/aws` ⚠️
+
+###### BODY
+
+| KEY  | VALUE    | REQUIRED | DEFAULT |
+| ---- | -------- | -------- | ------- |
+| urls | [String] | Yes      |         |
+
+###### RESPONSE
+
+```js
+{
+  success: Boolean
+}
+```
