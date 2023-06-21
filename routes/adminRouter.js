@@ -18,7 +18,7 @@ adminRouter.put('/', cookieAuthRequired(), isAdmin(), asyncHandler(updateConfig)
 
 adminRouter.post(
   "/upload/aws", 
-  authRequired(),
+  cookieAuthRequired(),
   isAdmin(),
   upload.array("files"), 
   asyncHandler(uploadAws)
@@ -26,7 +26,7 @@ adminRouter.post(
 
 adminRouter.post(
   "/delete/aws", 
-  authRequired(),
+  cookieAuthRequired(),
   isAdmin(),
   asyncHandler(deleteAws)
 );
