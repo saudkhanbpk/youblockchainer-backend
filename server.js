@@ -86,7 +86,11 @@ const server = app.listen(
 );
 
 // Web Sockets
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  },
+});
 
 const Chat = require('./models/chatModel');
 
