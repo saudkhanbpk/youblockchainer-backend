@@ -1,18 +1,19 @@
 const dotenv = require('dotenv');
 const { Contract, ethers } = require('ethers');
 const forwarder = require('../artifacts/contracts/Forwarder.sol/Forwarder.json');
+const main = require('../artifacts/contracts/AskGPT.sol/AskGPT.json');
 
-const { forwarderAddress } = require('./constants');
+const { forwarderAddress, contractAddress } = require('./constants');
 
 // load env vars
 dotenv.config({ path: './.env' });
 
-// Goerli Testnet
+// Base Goerli Testnet
 const provider = new ethers.providers.JsonRpcProvider(
   'https://goerli.base.org'
 );
 
-let forwarderC;
+let forwarderC, mainC;
 
 const initializeBlockchain = async () => {
   try {
@@ -23,6 +24,8 @@ const initializeBlockchain = async () => {
     );
     // Forwarder Object
     forwarderC = new Contract(forwarderAddress, forwarder.abi, wallet);
+    // AskGPT Object
+    mainC = new Contract(contractAddress, main.abi, wallet);
   } catch (err) {
     console.log(err);
   }
@@ -30,7 +33,8 @@ const initializeBlockchain = async () => {
 
 const getMethods = async () => {
   return {
-    forwarderC
+    forwarderC,
+    mainC
   };
 };
 

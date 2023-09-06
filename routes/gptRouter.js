@@ -1,14 +1,17 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 
-const { cookieAuthRequired, isAdmin } = require('../middleware/auth');
+const { cookieAuthRequired } = require('../middleware/auth');
 
 const {
   askChatGPT,
+  finishGeneration,
 } = require('../controllers/gptController');
 
 const userRouter = express.Router();
 
-userRouter.post('/ask',  asyncHandler(askChatGPT));
+userRouter.post('/ask', cookieAuthRequired(), asyncHandler(askChatGPT));
+
+// userRouter.get('/finish', cookieAuthRequired(), asyncHandler(finishGeneration));
 
 module.exports = userRouter;

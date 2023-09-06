@@ -224,7 +224,6 @@
 
 | KEY       | VALUE  | REQUIRED | DEFAULT |
 | --------- | ------ | -------- | ------- |
-| signature | String | Yes      |         |
 | address   | String | Yes      |         |
 
 ###### RESPONSE
@@ -537,9 +536,10 @@ const res = await axios.post('http://localhost/api/v1/user/metatx', {
 
 ###### BODY
 
-| KEY    | VALUE  | REQUIRED | DEFAULT |
-| ------ | ------ | -------- | ------- |
-| prompt | String | Yes      |         |
+| KEY    | VALUE   | REQUIRED | DEFAULT |
+| ------ | ------- | -------- | ------- |
+| prompt | String  | Yes      |         |
+| isLast | Boolean | No       |         |
 
 ###### RESPONSE
 

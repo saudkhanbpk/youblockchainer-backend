@@ -44,6 +44,7 @@ const UserSchema = new mongoose.Schema({
   videoIntro: {
 		type: String, // IPFS string
     required: false,
+    default: '',
 	},
   videoVisibility: {
 		type: Boolean,
