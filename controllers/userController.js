@@ -68,20 +68,20 @@ exports.getUsersPaginated = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { address } = req.query;
+  const { address, signature } = req.query;
 
-  if (!address) {
+  if (!address || !signature) {
     return res.status(401).json('Please provide all the details');
   }
 
-  // const message = `Purpose:\nSign to verify wallet ownership.\n\nWallet address:\n${address}\n\nHash:\n${ethers.utils.keccak256(
-  //   address
-  // )}`;
-  // let walletAddress = ethers.utils.verifyMessage(message, signature);
+  const message = `Purpose:\nSign to verify wallet ownership.\n\nWallet address:\n${address}\n\nHash:\n${ethers.utils.keccak256(
+    address
+  )}`;
+  let walletAddress = ethers.utils.verifyMessage(message, signature);
 
-  // if (walletAddress.toLowerCase() !== address.toLowerCase()) {
-  //   return res.status(401).json('Invalid Login attempt');
-  // }
+  if (walletAddress.toLowerCase() !== address.toLowerCase()) {
+    return res.status(401).json('Invalid Login attempt');
+  }
   walletAddress = address.toLowerCase();
 
   const user = await User.findOne({
