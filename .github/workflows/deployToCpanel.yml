@@ -17,9 +17,9 @@ jobs:
         with:
           node-version: 16
     
-      - name: npm install
-        run: |
-          npm install
+      # - name: npm install
+      #   run: |
+      #     npm install
 
       - name: Configure env
         run: |
@@ -33,6 +33,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          exclude: |
-            **/.git*
-            **/.git*/**
+          # exclude: |
+          #   **/.git*
+          #   **/.git*/**
