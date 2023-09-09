@@ -9,6 +9,8 @@ contract AskGPT {
     address public admin;
     address private forwarder;
 
+    uint256 public pricePerScript = 0.01 * 10**18; // 0.01 Eth 
+
     // -------------- Structs ---------------------
     struct AgreementData {
         address contractAddress;
@@ -21,11 +23,20 @@ contract AskGPT {
     mapping(address => string) public agreementUri; // Agreement metadata
     mapping(uint256 => AgreementData) public agreementsData;
 
+    mapping(address => uint256) numOfScripts; // num of scripts that can be generated - 1
+    mapping(address => bool) freeScriptUsed;
+
     // ---------------- Events -------------------
     event AgreementCreated(
         address indexed _firstParty,
         address indexed _secondParty,
         address _contractAddress,
+        uint256 _timestamp
+    );
+    event MembershipPayment(
+        address indexed _buyer,
+        uint256 indexed _numOfScripts,
+        uint256 _paymentAmount,
         uint256 _timestamp
     );
 
@@ -130,9 +141,47 @@ contract AskGPT {
         return temp;
     }
 
+    // -------------- Membership Functions ---------
+    // Pay for scripts
+    function buyScripts(uint256 _amount) public payable {
+        require(msg.value >= _amount*pricePerScript, "Ether sent does not match the price!");
+
+        address sender = msgSender();
+        
+        numOfScripts[sender] += _amount;
+
+        emit MembershipPayment(
+            msgSender(),
+            _amount,
+            msg.value,
+            block.timestamp
+        );
+    }
+
+    // Get pending scripts
+    function getPendingScripts(address _user) public view returns (uint256 _numOfScripts) {
+        if (freeScriptUsed[_user]) {
+            return numOfScripts[_user];
+        } else {
+            return 1;
+        }
+    }
+
     // -------------- Admin Functions -------------
     function setMarketFee(uint256 _amount) public onlyAdmin {
         marketFee = _amount;
+    }
+
+    function setPricePerScript(uint256 _amount) public onlyAdmin {
+        pricePerScript = _amount;
+    }
+
+    function deductPendingScripts(address _user) public onlyAdmin {
+        if (freeScriptUsed[_user]) {
+            numOfScripts[_user]--;
+        } else {
+            freeScriptUsed[_user] = true;
+        }
     }
 
     function withdraw() public onlyAdmin {
