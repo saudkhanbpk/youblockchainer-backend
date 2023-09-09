@@ -75,14 +75,12 @@ app.get('*', (req, res) => {
   res.sendFile(`${__dirname}/public/index.html`);
 });
 
-// access env vars
-const PORT = 3000;
-
 const server = app.listen(
-  PORT,
-  console.log(
-    `The server is running in ${process.env.NODE_ENV} mode on port ${PORT}`
-  )
+  () => {
+    console.log(
+      `The server is running in ${process.env.NODE_ENV} mode on port ${server.address().port}`
+    )
+  }
 );
 
 // Web Sockets
