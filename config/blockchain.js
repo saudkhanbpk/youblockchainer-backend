@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+const ipfsClient = require('ipfs-http-client');
 const { Contract, ethers } = require('ethers');
 const forwarder = require('../artifacts/contracts/Forwarder.sol/Forwarder.json');
 const main = require('../artifacts/contracts/AskGPT.sol/AskGPT.json');
@@ -14,6 +15,23 @@ const provider = new ethers.providers.JsonRpcProvider(
 );
 
 let forwarderC, mainC;
+let ipfs;
+
+const initIpfs = async () => {
+  const auth =
+  `Basic ` +
+  Buffer.from(
+    process.env.PROJECT_ID + `:` + process.env.PROJECT_SECRET
+  ).toString(`base64`);
+  ipfs = ipfsClient({
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    headers: {
+      authorization: auth,
+    },
+  });
+}
 
 const initializeBlockchain = async () => {
   try {
@@ -34,7 +52,8 @@ const initializeBlockchain = async () => {
 const getMethods = async () => {
   return {
     forwarderC,
-    mainC
+    mainC,
+    ipfs
   };
 };
 
@@ -42,4 +61,5 @@ module.exports = {
   initializeBlockchain,
   provider,
   getMethods,
+  initIpfs
 };
