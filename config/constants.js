@@ -1,4 +1,4 @@
-const contractAddress = "0xc83589897479A672d9496307E24D16ab1658c4aF";
+const contractAddress = "0x59aA58454D14869A6924d732df4f1E6db5f642Cd";
 
 const forwarderAddress = "0x2604441A291eF0EEba319a4Fd959Fa8e96899e8E";
 
