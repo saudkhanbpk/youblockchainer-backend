@@ -27,7 +27,7 @@ exports.uploadImg = async (req, res) => {
   } catch (err) {
     res.json({
       success: false,
-      msg: err.message,
+      msg: err,
     });
   }
 };
@@ -45,7 +45,7 @@ exports.uploadJson = async (req, res) => {
   } catch (err) {
     res.json({
       success: false,
-      msg: err.message,
+      msg: err,
     });
   }
 };
