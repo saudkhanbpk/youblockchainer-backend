@@ -50,6 +50,7 @@ const gptRouter = require('./routes/gptRouter');
 const ipfsRouter = require('./routes/ipfsRouter');
 const chatRouter = require('./routes/chatRouter');
 const adminRouter = require('./routes/adminRouter');
+const knowledgeRouter = require('./routes/knowledgeRouter');
 
 // Dev middleware Morgan
 if (process.env.NODE_ENV === 'development') {
@@ -70,6 +71,7 @@ app.use('/api/v1/gpt', gptRouter);
 app.use('/api/v1/ipfs', ipfsRouter);
 app.use('/api/v1/chat', chatRouter);
 app.use('/api/v1/admin', adminRouter);
+app.use('/api/v1/knowledge', adminRouter);
 
 // Handling other routes
 app.get('*', (req, res) => {
