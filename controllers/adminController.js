@@ -1,5 +1,9 @@
-const Config = require('../models/configModel');
+const jwt = require('jsonwebtoken');
 const AWS = require('aws-sdk');
+
+const Config = require('../models/configModel');
+const Home = require('../models/homeModel');
+const User = require('../models/userModel');
 
 exports.getConfig = async (req, res) => {
   let ads = await Config.findOne();
@@ -18,6 +22,41 @@ exports.updateConfig = async (req, res) => {
     new: true,
   });
   return res.status(200).json(ad);
+};
+
+exports.getHome = async (req, res) => {
+  let ads = await Home.findOne();
+  if(!ads) {
+    ads = await Home.create({
+      ideation: [],
+      pre: [],
+      post: [],
+    });
+    res.status(200).json(ads);
+  } else {
+    res.status(200).json(ads);
+  }
+};
+
+exports.updateHome = async (req, res) => {
+  const ads = await Home.findOne();
+
+  const ad = await Home.findByIdAndUpdate(ads._id, req.body, {
+    new: true,
+  });
+  return res.status(200).json(ad);
+};
+
+exports.adminLogin = async (req, res) => {
+  const { email, password } = req.body;
+
+  if(email !== "admin@myreeldream.ai" || password !== "1234567890") {
+    return res.status(401).json('Invalid Login attempt');
+  }
+
+  const user = await User.findById("648ccd6cfb77350f3b0fc1fb");
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  res.cookie('access_token', token).status(200).json({ user, token });
 };
 
 exports.uploadAws = async (req, res) => {
