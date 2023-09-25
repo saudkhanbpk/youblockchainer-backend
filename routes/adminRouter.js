@@ -26,9 +26,9 @@ adminRouter.put(
   asyncHandler(updateConfig)
 );
 
-adminRouter.get('/land', asyncHandler(getHome));
+adminRouter.get('/home', asyncHandler(getHome));
 adminRouter.put(
-  '/land',
+  '/home',
   cookieAuthRequired(),
   isAdmin(),
   asyncHandler(updateHome)
