@@ -5,14 +5,9 @@ const { cookieAuthRequired, isAdmin } = require('../middleware/auth');
 
 const {
   getKnowledges,
-  newKnowledge,
   getKnowledgeById,
   updateKnowledge,
-  deleteKnowledge,
-  getKnowledges,
   newKnowledge,
-  getKnowledgeById,
-  updateKnowledge,
   deleteKnowledge,
 } = require('../controllers/knowledgeController');
 
