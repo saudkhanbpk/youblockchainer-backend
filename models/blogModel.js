@@ -27,11 +27,9 @@ const BlogSchema = new mongoose.Schema(
         type: String,
       },
     ],
-    metaDescription: [
-      {
-        type: String,
-      },
-    ],
+    metaDescription:{
+      type: String,
+    },
     image: { // IPFS string
       type: String,
     },
