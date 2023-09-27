@@ -12,11 +12,9 @@ const BlogSchema = new mongoose.Schema(
     content: {
       type: String,
     },
-    metaKeywords: [
-      {
-        type: String,
-      },
-    ],
+    metaKeywords: {
+      type: String,
+    },
     metaDescription:{
       type: String,
     },
