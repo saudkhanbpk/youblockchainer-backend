@@ -8,11 +8,9 @@ const SupportSchema = new mongoose.Schema(
     },
     subject: {
       type: String,
-      required: true,
     },
     description: {
       type: String,
-      required: true,
     },
     status: { // Open/Active/Resolved/Closed
       type: String,

@@ -4,7 +4,6 @@ const BlogSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
@@ -12,7 +11,6 @@ const BlogSchema = new mongoose.Schema(
     },
     content: {
       type: String,
-      required: true,
     },
     metaKeywords: [
       {
