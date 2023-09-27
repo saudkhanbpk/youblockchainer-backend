@@ -6,17 +6,9 @@ const BlogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    slug: { // slugify(req.body.blogs_title.toLowerCase())
-      type: String,
-      required: true,
-    },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
-    },
-    description: {
-      type: String,
-      required: true,
     },
     content: {
       type: String,
