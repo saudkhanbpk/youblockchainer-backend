@@ -12,6 +12,8 @@ const {
   uploadAws,
   deleteAws,
   adminLogin,
+  getPackages,
+  updatePackages,
 } = require('../controllers/adminController');
 
 const adminRouter = express.Router();
@@ -24,6 +26,14 @@ adminRouter.put(
   cookieAuthRequired(),
   isAdmin(),
   asyncHandler(updateConfig)
+);
+
+adminRouter.get('/packages', asyncHandler(getPackages));
+adminRouter.put(
+  '/packages',
+  cookieAuthRequired(),
+  isAdmin(),
+  asyncHandler(updatePackages)
 );
 
 adminRouter.get('/home', asyncHandler(getHome));
