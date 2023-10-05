@@ -190,6 +190,16 @@ contract AskGPT {
         packages[4] = _package4;
     }
 
+    function getPackages() public view returns (PackageData[] memory allPackages) {
+        PackageData[] memory temp = new PackageData[](4);
+
+        for (uint256 i = 1; i < 5; i++) {
+            temp[i-1] = packages[i];
+        }
+
+        return temp;
+    }
+
     function deductPendingScripts(address _user) public onlyAdmin {
         if (freeScriptUsed[_user]) {
             numOfScripts[_user]--;
