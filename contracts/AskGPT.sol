@@ -9,12 +9,16 @@ contract AskGPT {
     address public admin;
     address private forwarder;
 
-    uint256 public pricePerScript = 0.01 * 10**18; // 0.01 Eth 
-
     // -------------- Structs ---------------------
     struct AgreementData {
         address contractAddress;
         string data;
+    }
+
+    struct PackageData {
+        string name;
+        uint256 price;
+        uint256 numOfScripts;
     }
 
     // --------------- Mappings ------------------
@@ -24,7 +28,9 @@ contract AskGPT {
     mapping(uint256 => AgreementData) public agreementsData;
 
     mapping(address => uint256) numOfScripts; // num of scripts that can be generated - 1
+    mapping(address => uint256) numOfFreeScripts;
     mapping(address => bool) freeScriptUsed;
+    mapping(uint256 => PackageData) public packages;
 
     // ---------------- Events -------------------
     event AgreementCreated(
@@ -54,13 +60,16 @@ contract AskGPT {
         _;
     }
 
-    function msgSender() internal view returns(address sender) {
-        if(msg.sender == forwarder) {
+    function msgSender() internal view returns (address sender) {
+        if (msg.sender == forwarder) {
             bytes memory array = msg.data;
             uint256 index = msg.data.length;
             assembly {
                 // Load the 32 bytes word from memory with the address on the lower 20 bytes, and mask those.
-                sender := and(mload(add(array, index)), 0xffffffffffffffffffffffffffffffffffffffff)
+                sender := and(
+                    mload(add(array, index)),
+                    0xffffffffffffffffffffffffffffffffffffffff
+                )
             }
         } else {
             return msg.sender;
@@ -143,27 +152,29 @@ contract AskGPT {
 
     // -------------- Membership Functions ---------
     // Pay for scripts
-    function buyScripts(uint256 _amount) public payable {
-        require(msg.value >= _amount*pricePerScript, "Ether sent does not match the price!");
+    function buyScripts(uint256 _packageId) public payable {
+        require(msg.value >= packages[_packageId].price, "Ether sent does not match the price!");
 
         address sender = msgSender();
-        
-        numOfScripts[sender] += _amount;
+
+        numOfScripts[sender] += packages[_packageId].numOfScripts;
 
         emit MembershipPayment(
             msgSender(),
-            _amount,
+            packages[_packageId].numOfScripts,
             msg.value,
             block.timestamp
         );
     }
 
     // Get pending scripts
-    function getPendingScripts(address _user) public view returns (uint256 _numOfScripts) {
+    function getPendingScripts(
+        address _user
+    ) public view returns (uint256 _numOfScripts) {
         if (freeScriptUsed[_user]) {
             return numOfScripts[_user];
         } else {
-            return 1;
+            return 3-numOfFreeScripts[_user];
         }
     }
 
@@ -172,15 +183,21 @@ contract AskGPT {
         marketFee = _amount;
     }
 
-    function setPricePerScript(uint256 _amount) public onlyAdmin {
-        pricePerScript = _amount;
+    function setPackages(PackageData memory _package1, PackageData memory _package2, PackageData memory _package3, PackageData memory _package4) public onlyAdmin {
+        packages[1] = _package1;
+        packages[2] = _package2;
+        packages[3] = _package3;
+        packages[4] = _package4;
     }
 
     function deductPendingScripts(address _user) public onlyAdmin {
         if (freeScriptUsed[_user]) {
             numOfScripts[_user]--;
         } else {
-            freeScriptUsed[_user] = true;
+            numOfFreeScripts[_user]++;
+            if (numOfFreeScripts[_user] == 3) {
+                freeScriptUsed[_user] = true;
+            }
         }
     }
 
@@ -234,14 +251,28 @@ contract Agreement {
     }
 
     // ---------------- Events -------------------
-    event MilestoneAdded(uint256 indexed _milestoneId, string _name, uint256 _amount, uint256 _timestamp);
+    event MilestoneAdded(
+        uint256 indexed _milestoneId,
+        string _name,
+        uint256 _amount,
+        uint256 _timestamp
+    );
     event MilestoneUpdated(uint256 indexed _milestoneId, uint256 _timestamp);
     event MilestoneRemoved(uint256 indexed _milestoneId, uint256 _timestamp);
     event MilestoneFunded(uint256 indexed _milestoneId, uint256 _timestamp);
     event PaymentRequested(uint256 indexed _milestoneId, uint256 _timestamp);
     event MilestoneApproved(uint256 indexed _milestoneId, uint256 _timestamp);
-    event RefundRequested(uint256 indexed _requestId, uint256 indexed _milestoneId, uint256 _amount, uint256 _timestamp);
-    event RequestUpdated(uint256 indexed _requestId, uint256 _amount, uint256 _timestamp);
+    event RefundRequested(
+        uint256 indexed _requestId,
+        uint256 indexed _milestoneId,
+        uint256 _amount,
+        uint256 _timestamp
+    );
+    event RequestUpdated(
+        uint256 indexed _requestId,
+        uint256 _amount,
+        uint256 _timestamp
+    );
     event RefundGranted(uint256 indexed _requestId, uint256 _timestamp);
 
     constructor(
@@ -294,13 +325,16 @@ contract Agreement {
         _;
     }
 
-    function msgSender() internal view returns(address sender) {
-        if(msg.sender == forwarder) {
+    function msgSender() internal view returns (address sender) {
+        if (msg.sender == forwarder) {
             bytes memory array = msg.data;
             uint256 index = msg.data.length;
             assembly {
                 // Load the 32 bytes word from memory with the address on the lower 20 bytes, and mask those.
-                sender := and(mload(add(array, index)), 0xffffffffffffffffffffffffffffffffffffffff)
+                sender := and(
+                    mload(add(array, index)),
+                    0xffffffffffffffffffffffffffffffffffffffff
+                )
             }
         } else {
             return msg.sender;
@@ -359,7 +393,8 @@ contract Agreement {
     }
 
     function fundMilestone(uint256 _milestoneId) public payable onlyManager {
-        uint256 marketFeeAmount = (milestones[_milestoneId].amount * marketFee) / 1000;
+        uint256 marketFeeAmount = (milestones[_milestoneId].amount *
+            marketFee) / 1000;
 
         require(!milestones[_milestoneId].funded, "Milestone already funded!");
         require(
@@ -383,7 +418,9 @@ contract Agreement {
         emit PaymentRequested(_milestoneId, block.timestamp);
     }
 
-    function approveMilestone(uint256 _milestoneId) public payable onlyDisputeResolver {
+    function approveMilestone(
+        uint256 _milestoneId
+    ) public payable onlyDisputeResolver {
         require(milestones[_milestoneId].funded, "Milestone isn't funded!");
         require(!milestones[_milestoneId].paid, "Milestone already approved!");
 
@@ -406,9 +443,19 @@ contract Agreement {
 
         refundCount++;
 
-        refunds[refundCount] = RefundInfo(refundCount, _milestoneId, _amount, false);
+        refunds[refundCount] = RefundInfo(
+            refundCount,
+            _milestoneId,
+            _amount,
+            false
+        );
 
-        emit RefundRequested(refundCount, _milestoneId, _amount, block.timestamp);
+        emit RefundRequested(
+            refundCount,
+            _milestoneId,
+            _amount,
+            block.timestamp
+        );
     }
 
     function updateRequest(
@@ -422,20 +469,24 @@ contract Agreement {
         );
 
         refunds[_requestId].amount = _amount;
-        
+
         emit RequestUpdated(_requestId, _amount, block.timestamp);
     }
 
-    function grantRefund(uint256 _requestId) public payable onlyDisputeResolver2 {
+    function grantRefund(
+        uint256 _requestId
+    ) public payable onlyDisputeResolver2 {
         require(!refunds[_requestId].resolved, "Request already resolved!");
-        
+
         refunds[_requestId].resolved = true;
-        milestones[refunds[_requestId].milestoneId].amount -= refunds[_requestId].amount;
+        milestones[refunds[_requestId].milestoneId].amount -= refunds[
+            _requestId
+        ].amount;
         payable(manager).transfer(refunds[_requestId].amount);
 
         emit RefundGranted(_requestId, block.timestamp);
     }
-    
+
     function endContract() public onlyManager {
         require(endsAt == 0, "Agreement has ended");
         endsAt = block.timestamp;
