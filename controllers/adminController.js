@@ -17,7 +17,7 @@ exports.getPackages = async (req, res) => {
 exports.updatePackages = async (req, res) => {
   const { package1, package2, package3, package4 } = req.body;
   const resp = await (
-    await mainC.deductPendingScripts(package1, package2, package3, package4, {
+    await mainC.setPackages(package1, package2, package3, package4, {
       value: 0,
     })
   ).wait();
