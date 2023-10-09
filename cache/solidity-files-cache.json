@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\2.Programming\\8. Freelancing\\14. ChatGPTAndBlockchain\\dev\\Web3_chatgpt_backend\\contracts\\AskGPT.sol": {
-      "lastModificationDate": 1696518023352,
-      "contentHash": "f15c8620f1999c500c7571d4e2756bc3",
+      "lastModificationDate": 1696848219972,
+      "contentHash": "6de8b20313ae0e674e5097bd1459d7c0",
       "sourceName": "contracts/AskGPT.sol",
       "solcConfig": {
         "version": "0.8.2",

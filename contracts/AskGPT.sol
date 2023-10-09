@@ -174,7 +174,7 @@ contract AskGPT {
         if (freeScriptUsed[_user]) {
             return numOfScripts[_user];
         } else {
-            return 3-numOfFreeScripts[_user];
+            return 3-numOfFreeScripts[_user]+numOfScripts[_user];
         }
     }
 
