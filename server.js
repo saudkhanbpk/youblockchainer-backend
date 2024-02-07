@@ -154,7 +154,7 @@ app.use((err, req, res, next) => {
     console.log(err);
   }
 
-  return res.status(500).json(err);
+  return res.status(200).json(err);
 });
 
 // Handle unhandled promise rejections
