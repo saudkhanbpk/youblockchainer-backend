@@ -3,7 +3,6 @@ const morgan = require('morgan');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
-const fs = require('fs');
 
 const connectDB = require('./config/db');
 const { initializeBlockchain, initIpfs } = require('./config/blockchain');
@@ -160,14 +159,8 @@ app.use((err, req, res, next) => {
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-  fs.writeFile('err.txt', `Error: ${err.message}`, (err) => {
-    if (err) {
-      console.error('Error writing to file:', err);
-    } else {
-      console.log('Error message written to err.txt');
-    }
-    
-    // Close server and exit process
-    server.close(() => process.exit(1));
-  });
+  console.log('UNHANDLE');
+  console.log(`Error: ${err.message}`);
+  //close server and exit process
+  server.close(() => process.exit(1));
 });
