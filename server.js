@@ -154,13 +154,14 @@ app.use((err, req, res, next) => {
     console.log(err);
   }
 
-  return res.status(200).json(err);
+  return res.status(500).json(err);
 });
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
   console.log('UNHANDLE');
   console.log(`Error: ${err.message}`);
+  throw new Error(err.message)
   //close server and exit process
   server.close(() => process.exit(1));
 });
