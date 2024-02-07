@@ -72,7 +72,7 @@ exports.updateHome = async (req, res) => {
 exports.adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
-  if (email !== 'admin@myreeldream.ai' || password !== '1234567890') {
+  if (!email || !password || email !== 'admin@myreeldream.ai' || password !== '1234567890') {
     return res.status(401).json('Invalid Login attempt');
   }
 
