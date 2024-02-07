@@ -70,16 +70,15 @@ exports.updateHome = async (req, res) => {
 };
 
 exports.adminLogin = async (req, res) => {
-  // const { email, password } = req.body;
+  const { email, password } = req.body;
 
-  // if (email !== 'admin@myreeldream.ai' || password !== '1234567890') {
-  //   return res.status(401).json('Invalid Login attempt');
-  // }
+  if (email !== 'admin@myreeldream.ai' || password !== '1234567890') {
+    return res.status(401).json('Invalid Login attempt');
+  }
 
-  // const user = await User.findById('65c28c946ce512c12606db30');
-  // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-  // res.cookie('access_token', token).status(200).json({ user, token });
-  res.json('Hello')
+  const user = await User.findById('65c28c946ce512c12606db30');
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  res.cookie('access_token', token).status(200).json({ user, token });
 };
 
 exports.uploadAws = async (req, res) => {
