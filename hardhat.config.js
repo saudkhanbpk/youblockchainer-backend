@@ -45,6 +45,11 @@ module.exports = {
       accounts: [`0x${privatekey}`],
       network_id: 84531,
     },
+    artheraTestnet: {
+      url: `https://rpc-test2.arthera.net`,
+      accounts: [`0x${privatekey}`],
+      network_id: 10243,
+    },
     polygonTestnet: {
       url: `https://rpc-mumbai.maticvigil.com`,
       accounts: [`0x${privatekey}`],

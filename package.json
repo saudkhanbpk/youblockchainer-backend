@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "compile": "npx hardhat compile",
-    "deployContracts": "npx hardhat run scripts/deploy.js --network baseTestnet",
+    "deployContracts": "npx hardhat run scripts/deploy.js --network artheraTestnet",
     "ssh": "bash ./scripts/ssh.sh",
     "test": "npx hardhat test"
   },

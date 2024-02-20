@@ -11,7 +11,7 @@ dotenv.config({ path: './.env' });
 
 // Base Goerli Testnet
 const provider = new ethers.providers.JsonRpcProvider(
-  'https://goerli.base.org'
+  'https://rpc-test2.arthera.net'
 );
 
 let forwarderC, mainC;
