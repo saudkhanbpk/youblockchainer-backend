@@ -72,11 +72,11 @@ exports.updateHome = async (req, res) => {
 exports.adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
-  if (email !== 'admin@myreeldream.ai' || password !== '1234567890') {
+  if (!email || !password || email !== 'admin@myreeldream.ai' || password !== '1234567890') {
     return res.status(401).json('Invalid Login attempt');
   }
 
-  const user = await User.findById('648ccd6cfb77350f3b0fc1fb');
+  const user = await User.findById('65c28c946ce512c12606db30');
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   res.cookie('access_token', token).status(200).json({ user, token });
 };
