@@ -76,7 +76,7 @@ exports.adminLogin = async (req, res) => {
     return res.status(401).json('Invalid Login attempt');
   }
 
-  const user = await User.findById('65c28c946ce512c12606db30');
+  const user = await User.findById('65d4f6ebe2109227f39b876f');
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   res.cookie('access_token', token).status(200).json({ user, token });
 };
